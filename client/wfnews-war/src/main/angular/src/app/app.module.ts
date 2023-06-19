@@ -18,7 +18,8 @@ import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-m
 import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
 import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatLegacySnackBarModule, MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatSnackBarModule as MatSnackBar  } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
@@ -271,7 +272,9 @@ export const DATE_FORMATS = {
         MatPaginatorModule,
         NgxPaginationModule,
         NgxChartsModule,
-        YouTubePlayerModule
+        YouTubePlayerModule,
+        MatLegacySnackBarModule,
+        MatSnackBar
     ],
     providers: [
         // Added provideBootstrapEffects function to handle the ngrx issue that loads effects before APP_INITIALIZER
