@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, NgZone } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatLegacySnackBar, MatLegacySnackBarConfig} from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
 import { FCM } from '@capacitor-community/fcm';
 import { Store } from '@ngrx/store';
@@ -67,7 +67,7 @@ export class CapacitorService {
         protected store: Store<RootState>,
         protected eventEmitterService: EventEmitterService,
         protected stateService: ApplicationStateService,
-        protected snackbar: MatSnackBar
+        protected snackbar: MatLegacySnackBar
     ) {
         this.resume = new BehaviorSubject<boolean>(null);
         fromEvent(document, 'resume').subscribe(event => {
@@ -269,7 +269,7 @@ export class CapacitorService {
     }
 
     showNotificationSnackbar( title: string, body: string ) {
-        let cfg: MatSnackBarConfig<NotificationConfig> = {
+        let cfg: MatLegacySnackBarConfig<NotificationConfig> = {
             data: { title, body },
             // duration: 20 * 1000,
             verticalPosition: 'top'

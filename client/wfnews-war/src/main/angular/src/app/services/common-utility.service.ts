@@ -1,7 +1,7 @@
 import { NumberFormatStyle } from "@angular/common";
 import { Injectable } from "@angular/core";
 import { CapacitorService } from "./capacitor-service";
-import { MatSnackBarModule as MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 
 const MAX_CACHE_AGE = 30 * 1000
 
@@ -81,20 +81,20 @@ export class CommonUtilityService {
                 }
                 return position ? position.coords : undefined;
             }, error => {
-                // this.snackbarService.open('Unable to retrieve the current location.', '', {
-                //     duration: 5,
-                //     panelClass: 'snack-bar-warning'
-                // });
+                this.snackbarService.open('Unable to retrieve the current location.', '', {
+                    duration: 5,
+                     panelClass: 'snack-bar-warning'
+                 });
             },
                 { enableHighAccuracy: true }
             );
         }
         else {
             console.error('Unable to retrieve the current location.');
-            // this.snackbarService.open('Unable to retrieve the current location.', '', {
-            //     duration: 5,
-            //     panelClass: 'snack-bar-warning'
-            // });
+             this.snackbarService.open('Unable to retrieve the current location.', '', {
+                 duration: 5,
+                 panelClass: 'snack-bar-warning'
+             });
         }
     }
 
@@ -107,18 +107,18 @@ export class CommonUtilityService {
                 }
                 return position ? position.coords : undefined;
             }, error => {
-                // this.snackbarService.open('Unable to retrieve the current location.', '', {
-                //     duration: 5,
-                // });
+                 this.snackbarService.open('Unable to retrieve the current location.', '', {
+                     duration: 5,
+                 });
             },
                 { enableHighAccuracy: true }
             );
         }
         else {
             console.warn('Unable to access geolocation');
-            // this.snackbarService.open('Unable to access location services.', '', {
-            //     duration: 5,
-            // });
+             this.snackbarService.open('Unable to access location services.', '', {
+                 duration: 5,
+             });
         }
     }
 
