@@ -1,0 +1,23 @@
+@import '../report-of-fire.component.scss';
+
+.compass-container {
+    position: relative;  
+    top: 0;
+    left: 0;
+}
+
+.compass-face-image {
+    position: relative;
+    width: 262px;
+    height: 262px;
+    top: 0;
+    left: 15%;
+  }
+
+.compass-hand-image {
+    position: absolute;
+    width: 16px;
+    height: 141.97px;
+    top: 40px;
+    left: 48%;
+  }
