@@ -13,7 +13,7 @@
       <AppenderRef ref="Console" />
     </Logger>
     <Logger name="javax.net.debug" level="ERROR">
-      <AppenderRef ref="Console">
-    </logger>
+      <AppenderRef ref="Console" />
+    </Logger>
   </Loggers>
 </Configuration>

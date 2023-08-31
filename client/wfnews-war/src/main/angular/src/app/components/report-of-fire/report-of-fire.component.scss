@@ -1,10 +1,9 @@
 @import '../../../styles/variables';
 :host {
-  font-family: 'Noto Sans';
+  font-family: 'BC Sans', 'Noto Sans', Arial, 'sans serif';
 }
 
 .mobile-header{
-  height: 50px;
   display: flex;
   justify-content: space-between;
   padding:13px 32px 0 20px;
@@ -27,6 +26,17 @@
   }
   .title{
     color:black !important
+  }
+}
+
+@media (max-height: 700px) {
+  .rof-text-primary-header{
+    font-size: 3.85vh !important;
+    margin: 10px 0px !important;
+  }
+
+  .rof-text-secondary-header{
+      font-size: 2.2vh !important;
   }
 }
 
@@ -70,11 +80,10 @@
 .rof-button-container {
   justify-content: space-between;
   display: flex;
-  height: 43px;
   padding: 8px 0px;
   align-items: center;
   width: calc(100% - 64px);
-  bottom: 4em;
+  bottom: 3em;
   position: fixed;
   .rof-button {
     padding:0 32px;
@@ -136,12 +145,19 @@
     height: 81px;
     margin-bottom: 0px !important;
     background-color: #F1F1F1;
+    @media (max-height: 700px){
+      height: 9vh;
+      font-size: 2.2vh !important;
+    }
   }
   .mat-flat-button {
     border: none;
     border-radius: 8px;
     background: #f1f1f1;
     height: 81px;
+    @media (max-height: 700px){
+      height: 9vh;
+    }
     padding: 0;
     margin: 0;
     font: inherit;
@@ -151,6 +167,9 @@
     color: #000 !important;
     text-align: center !important;
     font-size: 19px !important;
+    @media (max-height: 700px){
+      font-size: 2.2vh;
+    }
     font-style: normal !important;
     font-weight: 600 !important;
     line-height: normal !important;
@@ -174,8 +193,12 @@
     border: none;
     border-radius: 8px;
     height: 81px;
+    @media (max-height: 700px){
+      height: 9vh !important;
+    }
   }
   .mat-button-toggle-appearance-standard {
+    padding-top: 3px;
     color: rgba(0, 0, 0, 0.87);
     background-color: #f1f1f1;
   }
@@ -183,6 +206,7 @@
     background-color: #DFE5EE !important;
     border-radius: 8px;
     border: 3px solid #4169A4;
+    bottom: 3px;
   }
   .mat-button-toggle-button {
     border-radius: 8px;
@@ -190,13 +214,19 @@
 }
 
 ::ng-deep.mat-button-toggle-button {
-   height: 94px !important;
+   height: 81px !important;
+   @media (max-height: 700px) {
+    height: 8.5vh !important;
+   }
 }
   
 ::ng-deep.mat-button-toggle-label-content {
   color: #000;
   text-align: center;
   font-size: 19px;
+  @media (max-height: 700px){
+    font-size: 2.2vh;
+  }
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.38px;
@@ -241,7 +271,7 @@
     .mat-mdc-checkbox{
       span{
         color: #242424;
-        font-family: 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+        font-family: 'BC Sans', 'Noto Sans', Arial, 'sans serif';
         font-size: 17px;
         font-style: normal;
         font-weight: 400;
@@ -267,7 +297,7 @@
 
 .page-content{
   padding: 0 32px;
-  font-family: 'Noto Sans';
+  font-family: 'BC Sans', 'Noto Sans', Arial, 'sans serif';
   font-style: normal;
   font-size: 16px;
   font-weight: 400;
@@ -285,6 +315,7 @@
 }
 
 .question-mark{
+  vertical-align: baseline;
   color:#548ADB;
   margin-right: 8px;
 }

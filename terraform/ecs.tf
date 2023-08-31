@@ -31,19 +31,20 @@ resource "aws_ecs_task_definition" "wfnews_server" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.server_cpu_units
   memory                   = var.server_memory
-  # volume {
-  #   name = "work"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
+  volume {
+    name = "work"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "temp"
+  }
   tags                     = local.common_tags
   container_definitions = jsonencode([
     {
       essential   = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.server_container_name
       image       = var.server_image
       cpu         = var.server_cpu_units
@@ -213,16 +214,21 @@ resource "aws_ecs_task_definition" "wfnews_server" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/usr/local/tomcat/logs"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "work"
-        #   containerPath = "/usr/local/tomcat/work"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/usr/local/tomcat/logs"
+          readOnly = false
+        },
+        {
+          sourceVolume = "work"
+          containerPath = "/usr/local/tomcat/work"
+          readOnly = false
+        },
+        {
+          sourceVolume = "temp"
+          containerPath = "/usr/local/tomcat/temp"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
@@ -237,19 +243,17 @@ resource "aws_ecs_task_definition" "wfnews_client" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.client_cpu_units
   memory                   = var.client_memory
-  # volume {
-  #   name = "work"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
+  volume {
+    name = "work"
+  }
+  volume {
+    name = "logging"
+  }
   tags                     = local.common_tags
   container_definitions = jsonencode([
     {
       essential   = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.client_container_name
       image       = var.client_image
       cpu         = var.client_cpu_units
@@ -306,7 +310,7 @@ resource "aws_ecs_task_definition" "wfnews_client" {
         },
         { //Will be phased out from prod eventually, but not yet
           name  = "WFNEWS_API_URL",
-          value = var.target_env == "prod" ? "https://${var.gov_api_url}/" : "https://${aws_route53_record.wfnews_apisix.name}/"
+          value = var.target_env == "prod" ? "https://${var.gov_api_url}/" : "https://${aws_route53_record.wfnews_nginx.name}/"
         },
         {
           name  = "WFNEWS_API_KEY",
@@ -356,16 +360,16 @@ resource "aws_ecs_task_definition" "wfnews_client" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/usr/local/tomcat/logs"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "work"
-        #   containerPath = "/usr/local/tomcat/work"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/usr/local/tomcat/logs"
+          readOnly = false
+        },
+        {
+          sourceVolume = "work"
+          containerPath = "/usr/local/tomcat/work"
+          readOnly = false
+        }
         ]
       volumesFrom = []
     }
@@ -378,38 +382,35 @@ resource "aws_ecs_task_definition" "wfnews_liquibase" {
   task_role_arn            = aws_iam_role.wfnews_app_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = var.server_cpu_units
-  #   volume {
-  #   name = "cache"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "run"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "nginx"
-  # }
-  # volume {
-  #   name = "nginx-lib"
-  # }
-  # volume {
-  #   name = "local"
-  # }
-  memory                   = var.server_memory
+  cpu                      = var.liquibase_cpu
+  volume {
+    name = "cache"
+  }
+  volume {
+    name = "run"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "nginx"
+  }
+  volume {
+    name = "nginx-lib"
+  }
+  volume {
+    name = "local"
+  }
+  memory                   = var.liquibase_memory
   tags                     = local.common_tags
   container_definitions = jsonencode([
     {
       essential   = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.liquibase_container_name
       image       = var.liquibase_image
-      cpu         = var.server_cpu_units
-      memory      = var.server_memory
+      cpu         = var.liquibase_cpu
+      memory      = var.liquibase_memory
       networkMode = "awsvpc"
       portMappings = [
         {
@@ -446,44 +447,44 @@ resource "aws_ecs_task_definition" "wfnews_liquibase" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/var/log"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "cache"
-        #   containerPath = "/var/cache/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "run"
-        #   containerPath = "/var/run"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx"
-        #   containerPath = "/etc/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx-lib"
-        #   containerPath = "/var/lib/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "local"
-        #   containerPath = "/liquibase"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/var/log"
+          readOnly = false
+        },
+        {
+          sourceVolume = "cache"
+          containerPath = "/var/cache/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "run"
+          containerPath = "/var/run"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx"
+          containerPath = "/etc/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx-lib"
+          containerPath = "/var/lib/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "local"
+          containerPath = "/liquibase"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
   ])
 }
 
-resource "aws_ecs_task_definition" "wfnews_apisix" {
-  family                   = "wfnews-apisix-task-${var.target_env}"
+resource "aws_ecs_task_definition" "wfnews_nginx" {
+  family                   = "wfnews-nginx-task-${var.target_env}"
   execution_role_arn       = aws_iam_role.wfnews_ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.wfnews_app_container_role.arn
   network_mode             = "awsvpc"
@@ -491,62 +492,39 @@ resource "aws_ecs_task_definition" "wfnews_apisix" {
   cpu                      = var.server_cpu_units
   memory                   = var.server_memory
   tags                     = local.common_tags
-  # volume {
-  #   name = "cache"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "run"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "nginx"
-  # }
-  # volume {
-  #   name = "nginx-lib"
-  # }
-  # volume {
-  #   name = "local"
-  # }
-  # volume {
-  #   name = "tmp"
-  #   emptyDir = {}
-  # }
+  volume {
+    name = "cache"
+  }
+  volume {
+    name = "run"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "nginx"
+  }
+  volume {
+    name = "nginx-lib"
+  }
+  volume {
+    name = "tmp"
+  }
   container_definitions = jsonencode([
     {
       essential   = true
-      # readonlyRootFilesystem = true
-      name        = var.apisix_container_name
-      image       = var.apisix_image
+      readonlyRootFilesystem = true
+      name        = var.nginx_container_name
+      image       = var.nginx_image
       cpu         = var.server_cpu_units
       memory      = var.server_memory
       networkMode = "awsvpc"
       portMappings = [
         {
           protocol      = "tcp"
-          containerPort = var.apisix_ports[0]
-          hostPort      = var.apisix_ports[0]
-        },
-        {
-          protocol      = "tcp"
-          containerPort = var.apisix_ports[1]
-          hostPort      = var.apisix_ports[1]
+          containerPort = var.nginx_ports[0]
+          hostPort      = var.nginx_ports[0]
         }
-        # {
-        #   protocol = "tcp"
-        #   containerPort = var.apisix_admin_port
-        #   hostPort = var.apisix_admin_port
-        # },
-        # {
-        #   protocol = "tcp"
-        #   containerPort = var.health_check_port
-        #   hostPort = var.health_check_port
-        # }
-
       ]
       environment = [
         {
@@ -578,47 +556,42 @@ resource "aws_ecs_task_definition" "wfnews_apisix" {
         logDriver = "awslogs"
         options = {
           awslogs-create-group  = "true"
-          awslogs-group         = "/ecs/${var.apisix_names[0]}"
+          awslogs-group         = "/ecs/${var.nginx_names[0]}"
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = "ecs"
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/var/log/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "cache"
-        #   containerPath = "/var/cache/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "run"
-        #   containerPath = "/var/run"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx"
-        #   containerPath = "/etc/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx-lib"
-        #   containerPath = "/var/lib/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "local"
-        #   containerPath = "/usr/local/apisix"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "tmp"
-        #   containerPath = "/tmp"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/var/log"
+          readOnly = false
+        },
+        {
+          sourceVolume = "cache"
+          containerPath = "/var/cache/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "run"
+          containerPath = "/var/run"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx"
+          containerPath = "/etc/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx-lib"
+          containerPath = "/var/lib/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "tmp"
+          containerPath = "/tmp"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
@@ -631,38 +604,35 @@ resource "aws_ecs_task_definition" "notifications_liquibase" {
   task_role_arn            = aws_iam_role.wfnews_app_container_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = var.server_cpu_units
-  #   volume {
-  #   name = "cache"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "run"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "nginx"
-  # }
-  # volume {
-  #   name = "nginx-lib"
-  # }
-  # volume {
-  #   name = "local"
-  # }
-  memory = var.server_memory
+  cpu                      = var.liquibase_cpu
+  volume {
+    name = "cache"
+  }
+  volume {
+    name = "run"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "nginx"
+  }
+  volume {
+    name = "nginx-lib"
+  }
+  volume {
+    name = "local"
+  }
+  memory = var.liquibase_memory
   tags   = local.common_tags
   container_definitions = jsonencode([
     {
       essential = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.notifications_liquibase_container_name
       image       = var.liquibase_image
-      cpu         = var.server_cpu_units
-      memory      = var.server_memory
+      cpu         = var.liquibase_cpu
+      memory      = var.liquibase_memory
       networkMode = "awsvpc"
       portMappings = [
         {
@@ -699,36 +669,36 @@ resource "aws_ecs_task_definition" "notifications_liquibase" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/var/log"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "cache"
-        #   containerPath = "/var/cache/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "run"
-        #   containerPath = "/var/run"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx"
-        #   containerPath = "/etc/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx-lib"
-        #   containerPath = "/var/lib/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "local"
-        #   containerPath = "/liquibase"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/var/log"
+          readOnly = false
+        },
+        {
+          sourceVolume = "cache"
+          containerPath = "/var/cache/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "run"
+          containerPath = "/var/run"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx"
+          containerPath = "/etc/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "nginx-lib"
+          containerPath = "/var/lib/nginx"
+          readOnly = false
+        },
+        {
+          sourceVolume = "local"
+          containerPath = "/liquibase"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
@@ -742,33 +712,12 @@ resource "aws_ecs_task_definition" "wfss_pointid" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.server_cpu_units
-  #   volume {
-  #   name = "cache"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "run"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "nginx"
-  # }
-  # volume {
-  #   name = "nginx-lib"
-  # }
-  # volume {
-  #   name = "local"
-  # }
   memory = var.server_memory
   tags   = local.common_tags
   container_definitions = jsonencode([
     {
       essential = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.pointid_container_name
       image       = var.pointid_image
       cpu         = var.server_cpu_units
@@ -911,40 +860,34 @@ resource "aws_ecs_task_definition" "wfss_pointid" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/var/log"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "cache"
-        #   containerPath = "/var/cache/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "run"
-        #   containerPath = "/var/run"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx"
-        #   containerPath = "/etc/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx-lib"
-        #   containerPath = "/var/lib/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "local"
-        #   containerPath = "/liquibase"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/usr/local/tomcat/logs"
+          readOnly = false
+        },
+        {
+          sourceVolume = "work"
+          containerPath = "/usr/local/tomcat/work"
+          readOnly = false
+        },
+        {
+          sourceVolume = "temp"
+          containerPath = "/usr/local/tomcat/temp"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
   ])
+  volume {
+    name = "work"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "temp"
+  }
 }
 
 resource "aws_ecs_task_definition" "wfone_notifications_api" {
@@ -954,33 +897,21 @@ resource "aws_ecs_task_definition" "wfone_notifications_api" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.wfone_notifications_api_cpu_units
-  #   volume {
-  #   name = "cache"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "run"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "logging"
-  #   emptyDir = {}
-  # }
-  # volume {
-  #   name = "nginx"
-  # }
-  # volume {
-  #   name = "nginx-lib"
-  # }
-  # volume {
-  #   name = "local"
-  # }
+  volume {
+    name = "work"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "temp"
+  }
   memory = var.wfone_notifications_api_memory
   tags   = local.common_tags
   container_definitions = jsonencode([
     {
       essential = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = var.wfone_notifications_api_container_name
       image       = var.wfone_notifications_api_image
       cpu         = var.wfone_notifications_api_cpu_units
@@ -1107,36 +1038,21 @@ resource "aws_ecs_task_definition" "wfone_notifications_api" {
         }
       }
       mountPoints = [
-        # {
-        #   sourceVolume = "logging"
-        #   containerPath = "/var/log"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "cache"
-        #   containerPath = "/var/cache/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "run"
-        #   containerPath = "/var/run"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx"
-        #   containerPath = "/etc/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "nginx-lib"
-        #   containerPath = "/var/lib/nginx"
-        #   readOnly = false
-        # },
-        # {
-        #   sourceVolume = "local"
-        #   containerPath = "/liquibase"
-        #   readOnly = false
-        # }
+        {
+          sourceVolume = "logging"
+          containerPath = "/usr/local/tomcat/logs"
+          readOnly = false
+        },
+        {
+          sourceVolume = "work"
+          containerPath = "/usr/local/tomcat/work"
+          readOnly = false
+        },
+        {
+          sourceVolume = "temp"
+          containerPath = "/usr/local/tomcat/temp"
+          readOnly = false
+        }
       ]
       volumesFrom = []
     }
@@ -1154,10 +1070,19 @@ resource "aws_ecs_task_definition" "wfone_notifications_push_api" {
   cpu                      = var.server_cpu_units
   memory = var.server_memory
   tags   = local.common_tags
+  volume {
+    name = "work"
+  }
+  volume {
+    name = "logging"
+  }
+  volume {
+    name = "temp"
+  }
   container_definitions = jsonencode([
     {
       essential = true
-      # readonlyRootFilesystem = true
+      readonlyRootFilesystem = true
       name        = "${var.wfone_notifications_push_api_container_name}-${each.key}"
       image       = var.WFONE_NOTIFICATIONS_PUSH_API_IMAGE
       cpu         = var.server_cpu_units
@@ -1239,7 +1164,23 @@ resource "aws_ecs_task_definition" "wfone_notifications_push_api" {
           awslogs-stream-prefix = "ecs"
         }
       }
-      mountPoints = []
+      mountPoints = [
+        {
+          sourceVolume = "logging"
+          containerPath = "/usr/local/tomcat/logs"
+          readOnly = false
+        },
+        {
+          sourceVolume = "work"
+          containerPath = "/usr/local/tomcat/work"
+          readOnly = false
+        },
+        {
+          sourceVolume = "temp"
+          containerPath = "/usr/local/tomcat/temp"
+          readOnly = false
+        }
+      ]
       volumesFrom = []
     }
   ])
@@ -1364,10 +1305,10 @@ resource "aws_ecs_service" "client" {
   tags = local.common_tags
 }
 
-resource "aws_ecs_service" "apisix" {
-  name                              = "wfnews-apisix-service-${var.target_env}"
+resource "aws_ecs_service" "nginx" {
+  name                              = "wfnews-nginx-service-${var.target_env}"
   cluster                           = aws_ecs_cluster.wfnews_main.id
-  task_definition                   = aws_ecs_task_definition.wfnews_apisix.arn
+  task_definition                   = aws_ecs_task_definition.wfnews_nginx.arn
   desired_count                     = var.app_count
   enable_ecs_managed_tags           = true
   propagate_tags                    = "TASK_DEFINITION"
@@ -1394,9 +1335,9 @@ resource "aws_ecs_service" "apisix" {
 
   #Hit http endpoint
   load_balancer {
-    target_group_arn = aws_alb_target_group.wfnews_apisix.id
-    container_name   = var.apisix_container_name
-    container_port   = var.apisix_ports[0]
+    target_group_arn = aws_alb_target_group.wfnews_nginx.id
+    container_name   = var.nginx_container_name
+    container_port   = var.nginx_ports[0]
   }
 
   depends_on = [aws_iam_role_policy_attachment.wfnews_ecs_task_execution_role]

@@ -2,7 +2,6 @@
 
 .button-group{
     display: flex;
-    width: 326px;
     align-items: center;
     gap: 24px;
     button{
@@ -18,15 +17,21 @@
         border-radius: 8px;
         background: #F1F1F1;
         border-width: inherit;
+        @media (max-height: 700px) {
+            height: 20vh !important;
+          }
     }
     span{
         color: #000;
-        font-family: 'Noto Sans';
+        font-family: 'BC Sans', 'Noto Sans', Arial, 'sans serif';
         font-size: 19px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
         letter-spacing: -0.38px;
+        @media (max-height: 700px) {
+            font-size: 2.2vh !important;
+        }
     }
 }
 
@@ -60,7 +65,7 @@
     }
     
     .image{
-        height: 200px;
+        height: 25vh;
 
         &-fullScreen {
             object-fit: contain;
