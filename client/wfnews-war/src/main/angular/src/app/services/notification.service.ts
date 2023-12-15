@@ -102,7 +102,7 @@ export class NotificationService {
         console.log(url)
         let headers = new HttpHeaders();
         headers.append('Access-Control-Allow-Origin','https://test.openmaps.gov.bc.ca');
-        // headers.append('Accept','*/*');
+        headers.append('Accept','application/json');
         return this.http.get<any>(encodeURI(url),{headers})
 
     }
@@ -115,7 +115,7 @@ export class NotificationService {
         console.log(url)
         let headers = new HttpHeaders();
         headers.append('Access-Control-Allow-Origin','https://test.openmaps.gov.bc.ca');
-        // headers.append('Accept','*/*');
+        headers.append('Accept','application/json');
         return this.http.get<any>(encodeURI(url),{headers})
 
     }
