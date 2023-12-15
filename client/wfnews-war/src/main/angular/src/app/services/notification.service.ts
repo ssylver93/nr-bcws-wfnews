@@ -101,8 +101,8 @@ export class NotificationService {
         url += formattedString + ')))'
         console.log(url)
         let headers = new HttpHeaders();
-        headers.append('Access-Control-Allow-Origin','*');
-        headers.append('Accept','*/*');
+        headers.append('Access-Control-Allow-Origin','https://test.openmaps.gov.bc.ca/');
+        // headers.append('Accept','*/*');
         return this.http.get<any>(encodeURI(url),{headers})
 
     }
@@ -114,8 +114,8 @@ export class NotificationService {
         url += formattedString +')))'
         console.log(url)
         let headers = new HttpHeaders();
-        headers.append('Access-Control-Allow-Origin','*');
-        headers.append('Accept','*/*');
+        headers.append('Access-Control-Allow-Origin','https://test.openmaps.gov.bc.ca/');
+        // headers.append('Accept','*/*');
         return this.http.get<any>(encodeURI(url),{headers})
 
     }
