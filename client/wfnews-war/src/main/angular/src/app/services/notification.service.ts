@@ -106,7 +106,7 @@ export class NotificationService {
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Accept', '*/*');
         return this.capacitorService.isMobile.then( b => {
-            if ( b ) return this.http.get( url, null, headers )
+            if ( b ) return this.http.get( url, null, {'Access-Control-Allow-Origin': '*', 'Accept': '*/*'} )
                 .then( function( resp ) {
                     if ( resp.error ) throw resp.error
                     return JSON.parse( resp.data )
@@ -125,7 +125,7 @@ export class NotificationService {
         headers.append('Access-Control-Allow-Origin', '*');
         headers.append('Accept', '*/*');
         return this.capacitorService.isMobile.then( b => {
-            if ( b ) return this.http.get( url, null, headers )
+            if ( b ) return this.http.get( url, null, {'Access-Control-Allow-Origin': '*', 'Accept': '*/*'} )
                 .then( function( resp ) {
                     if ( resp.error ) throw resp.error
                     return JSON.parse( resp.data )
