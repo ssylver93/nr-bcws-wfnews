@@ -17,6 +17,7 @@ import { PushNotificationSchema, PushNotifications } from '@capacitor/push-notif
 import { AppLauncher } from '@capacitor/app-launcher';
 
 import { NotificationConfig, NotificationSnackbarComponent } from '../components/notification-snackbar/notification-snackbar.component';
+import { ResourcesRoutes } from '@app/utils';
 
 export interface CompassHeading {
     magneticHeading?: number //The heading in degrees from 0-359.99 at a single moment in time. (Number)
@@ -242,10 +243,10 @@ export class CapacitorService {
 
         this.notificationSnackbarPromise = this.notificationSnackbarPromise.then( () => {
             return new Promise( ( res, rej ) => {
-                let sb = this.showNotificationSnackbar( notification.title, notification.body )
+                let sb = this.showNotificationSnackbar(notification)
 
                 sb.onAction().subscribe( () => {
-                    this.emitRofNotification( notification.title, notification.body )
+                    this.emitLocationNotification(notification.body )
                 } )
 
                 sb.afterDismissed().subscribe( () => {
@@ -275,10 +276,23 @@ export class CapacitorService {
 
         this.notificationSnackbarPromise = this.notificationSnackbarPromise.then( () => {
             return new Promise( ( res, rej ) => {
-                let sb = this.showNotificationSnackbar( notification.title, notification.body )
+                let sb = this.showNotificationSnackbar(notification)
 
                 sb.onAction().subscribe( () => {
-                    this.emitLocationNotification( notification.data )
+                    let c = JSON.parse(notification.data['coords']),
+                    r = JSON.parse(notification.data['radius'])
+                    this.router.navigate([ResourcesRoutes.ACTIVEWILDFIREMAP], {
+                        queryParams: {
+                            latitude: c[0],
+                            longitude: c[1],
+                            radius: r,
+                            featureId: notification.data['messageID'],
+                            featureType: notification.data['topicKey'],
+                            identify:true,
+                            notification:true,
+                            time: Date.now()
+                        }
+                      });
                 } )
 
                 sb.afterDismissed().subscribe( () => {
@@ -312,10 +326,11 @@ export class CapacitorService {
         }, this.locationNotificationsDelay );
     }
 
-    showNotificationSnackbar( title: string, body: string ) {
-        let cfg: MatSnackBarConfig<NotificationConfig> = {
-            data: { title, body },
-            // duration: 20 * 1000,
+    showNotificationSnackbar( notification: any) {
+        let cfg: MatSnackBarConfig<any> = {
+            data: {notification},
+            // need to change back to 10 sec. Using 60 sec for testing purpose in case QA missed it.
+            duration: 60 * 1000,
             verticalPosition: 'top'
         }
 
