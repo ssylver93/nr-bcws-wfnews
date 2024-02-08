@@ -120,8 +120,8 @@ return;
       });
       if (response.ok) {
         console.log('response ok')
-        console.log(response.status)
-        console.log(response.status)
+        console.log(response)
+        alert(response.status)
         // The server successfully processed the report
         return { success: true, message: 'Report submitted successfully' };
       } else {
@@ -129,12 +129,12 @@ return;
         const responseData = await response.json();
         console.log('response error')
         console.log(responseData)
-        console.log(responseData.error)
+       alert(responseData.error)
         return { success: false, message: responseData.error };
       }
     } catch (error) {
       console.log('error')
-      console.log(error)
+      alert(error)
       // An error occurred during the HTTP request
       return {
         success: false,
