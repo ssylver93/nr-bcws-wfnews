@@ -3,7 +3,7 @@
         <div id="panel-details" [ngClass]="showAccordion ? 'details' : 'details close'">
             <desktop-legend-panel [selectedPanel]="selectedPanel"></desktop-legend-panel>
         </div>
-        <div id="map-container" class="map" [class.map01]="isSafeAreaNotDetectable()">
+        <div id="map-container" class="map">
         <div class="identify-panel"></div>
         <div class="search-row">
           <div class="search-bar">
@@ -27,7 +27,7 @@
                   </mat-option>
               </mat-autocomplete>
           </div>
-          <button class="button" mat-raised-button (click)="useMyCurrentLocation()"><mat-icon class="button-icon">my_location</mat-icon><span class="button-label">Find My Location</span></button>
+          <button class="button" mat-raised-button (click)="useMyCurrentLocation()"><mat-icon class="button-icon">my_location</mat-icon><span class="button-label">Find Me</span></button>
       </div>
             <wf-map-container class="map-container" [mapConfig]="mapConfig" (mapInitialized)="initMap($event)" (toggleAccordion)="onToggleAccordion()" (selectIncidents)="onSelectIncidents($event)"></wf-map-container>
             <div class="layers-container" *ngIf="this.isMapLoaded" (mouseover)="setupScrollForLayersComponent()">
@@ -78,7 +78,7 @@
         </div>
         <map-layers-datasource-section *ngIf="isDataSourcesOpen"></map-layers-datasource-section>
       </mobile-sliding-drawer>
-      <mobile-sliding-drawer [(isVisible)]="isLegendOpen" (isVisibleChange)="handleDrawerVisibilityChange($event)" [title]="'Legend'">
+      <mobile-sliding-drawer *ngIf="isMobileView()" [(isVisible)]="isLegendOpen" (isVisibleChange)="handleDrawerVisibilityChange($event)" [title]="'Legend'" [isGreyBackground]="true">
         <wfnews-base-legend [featureLayerID]="selectedLayer"></wfnews-base-legend>
       </mobile-sliding-drawer>
 </div>

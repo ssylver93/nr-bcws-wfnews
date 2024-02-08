@@ -1,5 +1,7 @@
+@import '../../../../styles/variables';
+
 :host {
-  font-family: 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+  font-family: "BCSans", "Open Sans", Verdana, Arial, sans-serif;
 }
 
 .spacer-bottom {
@@ -84,8 +86,9 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      gap: 12px;
     }
-    .content-panel-stack> * {
+    .content-panel-stack > * {
       flex: 1 1 350px;
     }
     .content-panel-body {
@@ -153,9 +156,9 @@
   display: none !important;
 }
 
-@media print{
+@media print {
   :host {
-    font-family: 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-family: "BCSans", "Open Sans", Verdana, Arial, sans-serif;
   }
   app-root {
     display: block;
@@ -175,9 +178,7 @@
   }
 }
 
-
-@media (min-width: 768px) and (max-width: 1023px) {
-
+@media (min-width: $desktop-sm-min-width) and (max-width: 1023px) {
   .panel {
     padding: 15px;
     .content-panel {
@@ -185,7 +186,7 @@
         margin-left: -8px;
         margin-right: -8px;
       }
-      .content-panel-stack> * {
+      .content-panel-stack > * {
         padding-left: 8px;
         padding-right: 8px;
       }
@@ -193,7 +194,7 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: $mobile-max-width) {
   .spacer-bottom {
     padding-bottom: 10px !important;
   }
@@ -233,4 +234,8 @@
       }
     }
   }
+}
+
+::ng-deep .mdc-snackbar__surface{
+  background-color: transparent !important;
 }

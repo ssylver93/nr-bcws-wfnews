@@ -1,11 +1,10 @@
-@import '../../../../../styles/variables';
+@import "../../../../../styles/variables";
 @import "notosans-fontface/scss/notosans-fontface";
 
-@media (min-width: 1250px) {
+@media (min-width: $desktop-md-min-width) {
   .container {
     overflow: hidden;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
-    padding: 20px;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     display: flex;
     height: 640px;
     max-height: 640px;
@@ -15,30 +14,31 @@
     gap: 12px;
     flex: 1 0 0;
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
   }
 
   .widget-header {
     color: #242424;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
     line-height: 34px; /* 130.769% */
     letter-spacing: 0.35px;
-    border-bottom: 1px solid #C4C4C4;
+    border-bottom: 1px solid #c4c4c4;
     width: 100%;
     padding-bottom: 16px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1250px) {
+@media (min-width: $desktop-sm-min-width) and (max-width: $desktop-sm-max-width) {
   .container {
     overflow: hidden;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
-    padding: 20px;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     display: flex;
     height: 580px;
     max-width: 850px;
@@ -49,48 +49,52 @@
     gap: 12px;
     flex: 1 0 0;
     border-radius: 20px;
-    background: #FFF;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.10);
+    background: #fff;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
   }
 
   .widget-header {
     color: #242424;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     font-size: 26px;
     font-style: normal;
     font-weight: 500;
     line-height: 34px; /* 130.769% */
     letter-spacing: 0.35px;
-    border-bottom: 1px solid #C4C4C4;
+    border-bottom: 1px solid #c4c4c4;
     width: 100%;
     padding-bottom: 16px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $mobile-max-width) {
   .container {
     overflow: hidden;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     display: flex;
     height: 600px;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
     flex: 1 0 0;
-    background: #FFF;
+    background: #fff;
   }
 
   .widget-header {
     color: #242424;
-    font-feature-settings: 'clig' off, 'liga' off;
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-feature-settings:
+      "clig" off,
+      "liga" off;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     font-size: 22px;
     font-style: normal;
     font-weight: 600;
     line-height: 34px; /* 130.769% */
     letter-spacing: 0.35px;
-    border-bottom: 1px solid #C4C4C4;
+    border-bottom: 1px solid #c4c4c4;
     width: 100%;
     padding-bottom: 16px;
   }
@@ -124,7 +128,7 @@
   gap: var(--12, 12px);
   align-self: stretch;
   border-radius: var(--12, 12px);
-  border: 1.5px solid var(--grays-gray-7, #DEDEDE);
+  border: 1.5px solid var(--grays-gray-7, #dedede);
   &-header {
     display: flex;
     width: 100%;
@@ -137,12 +141,13 @@
       top: 0px;
       display: flex;
       border-radius: 54px;
-      background: var(--Blue-4, #DFE5EE);
+      background: var(--Blue-4, #dfe5ee);
       padding: 10px;
     }
     &-title {
       color: var(--grays-gray-1, #242424);
-      font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+      font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial,
+        sans-serif;
       font-size: 22px;
       font-style: normal;
       font-weight: 500;
@@ -159,7 +164,7 @@
   }
   &-footer {
     color: var(--Grey-1, #666);
-    font-family: 'Noto sans', 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-family: "Noto sans", "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -172,6 +177,6 @@
   height: 1px;
   margin-top: 16px;
   margin-bottom: 16px;
-  border-bottom: 1px solid #DEDEDE;
+  border-bottom: 1px solid #dedede;
   width: 100%;
 }

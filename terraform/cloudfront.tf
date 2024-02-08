@@ -60,6 +60,8 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_client" {
     min_ttl                = 0
     default_ttl            = 300
     max_ttl                = 86400
+
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
   }
 
   ordered_cache_behavior {
@@ -89,6 +91,19 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_client" {
     target_origin_id       = "wfnews_client_${var.target_env}"
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
+    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+  }
+
+  ordered_cache_behavior {
+    path_pattern           = "/youtube.jsp"
+    allowed_methods        = ["GET", "OPTIONS", "HEAD"]
+    cached_methods         = ["GET", "OPTIONS", "HEAD"]
+    target_origin_id       = "wfnews_client_${var.target_env}"
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 86400
+    max_ttl                = 86400
     cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
   }
 
@@ -128,6 +143,7 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_client" {
     acm_certificate_arn = var.certificate_arn
     ssl_support_method  = "sni-only"
   }
+
 }
 
 resource "aws_cloudfront_distribution" "wfnews_geofencing_server" {
@@ -188,6 +204,8 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_server" {
         forward = "all"
       }
     }
+
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
@@ -293,6 +311,8 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_nginx" {
         forward = "all"
       }
     }
+
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
@@ -408,6 +428,8 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_gov_client" {
       }
     }
 
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
+
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 300
@@ -501,6 +523,8 @@ resource "aws_cloudfront_distribution" "wfnews_geofencing_gov_api" {
     cached_methods = ["GET", "HEAD"]
 
     target_origin_id = "wfnews_nginx_gov_${var.target_env}"
+
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
 
     forwarded_values {
       query_string = true
@@ -614,6 +638,8 @@ resource "aws_cloudfront_distribution" "wfss_pointid_api" {
 
     target_origin_id = "wfss_pointid_api_${var.target_env}"
 
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
+
     forwarded_values {
       query_string = true
       headers      = ["Origin"]
@@ -709,6 +735,8 @@ resource "aws_cloudfront_distribution" "wfone_notifications_api" {
 
     target_origin_id = "wfone_notifications_api_${var.target_env}"
 
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cache_control_reponse_headers.id
+
     forwarded_values {
       query_string = true
       headers      = ["Origin"]
@@ -753,5 +781,15 @@ output "wfnews_cloudfront_nginx_url" {
   value = "https://${aws_cloudfront_distribution.wfnews_geofencing_nginx[0].domain_name}"
 }
 
+resource "aws_cloudfront_response_headers_policy" "cache_control_reponse_headers" {
+  name = "cache-control-response-headers-${var.target_env}"
 
+  custom_headers_config {
+    items {
+      header   = "Cache-Control"
+      override = true
+      value    = "stale-while-revalidate=600"
+    }
+  }
+}
 

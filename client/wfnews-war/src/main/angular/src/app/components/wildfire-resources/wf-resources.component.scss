@@ -1,16 +1,18 @@
+@import "../../../styles/variables";
+
 .header-row {
   display: flex;
   height: 75px;
   .title {
-    padding:10px;
+    padding: 10px;
     margin-left: 10px;
     box-sizing: border-box;
     min-width: 363px;
     h1 {
-        font-size: 24px;
-        font-weight: normal;
-        margin-bottom: 0;
-        padding-bottom: 0;
+      font-size: 24px;
+      font-weight: normal;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
   }
   .title-button-container {
@@ -40,7 +42,7 @@
   }
 }
 
-@media (min-width: 1250px) {
+@media (min-width: $desktop-md-min-width) {
   .resource-container {
     display: flex;
     flex-flow: column;
@@ -48,9 +50,9 @@
   }
 
   .container {
-    height: calc(100vh - 125px) !important;
+    height: calc(100dvh - 125px) !important;
     overflow: hidden;
-    font-family: 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-family: "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     padding: 20px;
     background-color: white;
     max-width: 1500px;
@@ -65,9 +67,9 @@
   }
 
   .container {
-    height: calc(100vh - 125px) !important;
+    height: calc(100dvh - 125px) !important;
     overflow: hidden;
-    font-family: 'BCSans', 'Open Sans', Verdana, Arial, sans-serif;
+    font-family: "BCSans", "Open Sans", Verdana, Arial, sans-serif;
     padding: 20px;
     background-color: white;
     max-width: 1080px;
