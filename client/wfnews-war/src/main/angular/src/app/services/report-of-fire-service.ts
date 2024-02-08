@@ -262,6 +262,7 @@ formData.append('image3', image3);
       };
     }
   }
+}
 
   async submitToStorage(formData: FormData) {
     this.storage.create();
