@@ -231,6 +231,10 @@ formData.append('image3', image3);
         body: formData,
       });
 
+      console.log('response')
+      console.log(response.status)
+      console.log(JSON.stringify(response))
+
       if (response.ok) {
         // Remove the locally stored data if sync is successful
         await this.storage.remove('offlineReportData');
