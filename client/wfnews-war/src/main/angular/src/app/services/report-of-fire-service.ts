@@ -119,14 +119,22 @@ return;
         body: formData,
       });
       if (response.ok) {
+        console.log('response ok')
+        console.log(response.status)
+        console.log(response.status)
         // The server successfully processed the report
         return { success: true, message: 'Report submitted successfully' };
       } else {
         // The server encountered an error
         const responseData = await response.json();
+        console.log('response error')
+        console.log(responseData)
+        console.log(responseData.error)
         return { success: false, message: responseData.error };
       }
     } catch (error) {
+      console.log('error')
+      console.log(error)
       // An error occurred during the HTTP request
       return {
         success: false,
@@ -216,7 +224,7 @@ formData.append('resource', resource);
 
     if (image1) {
 formData.append('image1', image1);
-}
+
     if (image2) {
 formData.append('image2', image2);
 }
