@@ -163,16 +163,34 @@ valueMatch = trimmedAddress.substring(0, valueLength);
     return /iphone/.test(userAgent);
   }
 
+  isAndroid(): boolean {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /android/i.test(userAgent);
+  }
+
+  countdown(timeoutDuration) {
+    const promise = new Promise<boolean>((resolve, reject) => {
+      setTimeout(() => resolve(false), timeoutDuration);
+    });
+    return promise;
+  }
+
   checkLocationServiceStatus(): Promise<boolean> {
     const timeoutDuration = 10000; // 10 seconds limit
 
-    const timeoutPromise = new Promise<boolean>((resolve) => {
-      setTimeout(() => resolve(false), timeoutDuration);
-    });
-
-    const locationPromise = Geolocation.getCurrentPosition()
+    const timeoutPromise = this.countdown(timeoutDuration);
+    
+    let locationPromise = Geolocation.getCurrentPosition()
       .then(() => Promise.resolve(true))
       .catch(() => Promise.resolve(false));
+
+    // resolve for firefox on android
+    if (this.isAndroid() && window?.navigator?.userAgent?.toLowerCase().indexOf('firefox') > -1 && window?.navigator?.geolocation){
+      window.navigator.geolocation.getCurrentPosition(function(position) {
+        if(position) locationPromise = Promise.resolve(true);
+        else locationPromise = Promise.resolve(false);
+      });
+    }
 
     return Promise.race([timeoutPromise, locationPromise]);
   }
@@ -296,4 +314,13 @@ valueMatch = trimmedAddress.substring(0, valueLength);
       return false;
     }
   } 
+
+  
+  hasSQLKeywords(jsonBlob) {
+    //detect standalone sql words
+    const sqlKeywords = /\b(SELECT|INSERT|UPDATE|DELETE|ALTER|DROP|CREATE)\b(?!\s*\*)/i;
+    const sqlDetected = sqlKeywords.test(jsonBlob);
+    return sqlDetected;
+  }
+  
 }
