@@ -17,6 +17,7 @@ import { AppConfigService } from '@wf1/core-ui';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CapacitorHttp } from '@capacitor/core';
 import { CapacitorService } from '@app/services/capacitor-service';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 export class DownloadableMap {
   name: string;
@@ -119,7 +120,7 @@ export class IncidentMapsPanel implements OnInit {
             params: {responseType: 'blob'}   
           };
           response = CapacitorHttp.get(options).then(resp => {
-              this.downloadFile(resp.data, fileName);
+              this.downloadMobileFile(resp.data, fileName);
               this.snackbarService.open('PDF downloaded successfully.', 'Close', {
                 duration: 10000,
                 panelClass: 'snackbar-success-v2',
@@ -137,6 +138,7 @@ export class IncidentMapsPanel implements OnInit {
       });
       
   }catch(error) {
+    console.log(error)
     this.snackbarService.open('PDF downloaded failed.', 'Close', {
       duration: 10000,
       panelClass: 'snackbar-error',
@@ -182,6 +184,34 @@ export class IncidentMapsPanel implements OnInit {
     a.target = '_blank';
     a.click();
     document.body.removeChild(a);
+  }
+
+  downloadMobileFile(data: HttpResponse<Blob>, fileName: string) {
+    if (!fileName.endsWith('.pdf')) {
+      fileName += '.pdf';
+    }
+
+    try {
+      Filesystem.writeFile({
+        path: fileName,
+        data: data.body,
+        directory: Directory.Data,
+        encoding: Encoding.UTF8
+      }).then((writeFileResult) => {
+        console.log('File Written');
+        Filesystem.getUri({
+            directory: Directory.Data,
+            path: fileName
+        }).then((getUriResult) => {
+            console.log(getUriResult);
+        }, (error) => {
+            console.log(error);
+        });
+      });
+      console.log('writeFile complete');
+    } catch (error) {
+      console.error('Unable to write file', error);
+    }
   }
 
 }
