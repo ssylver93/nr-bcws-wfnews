@@ -80,7 +80,7 @@ export class RoFTitlePage extends RoFPage implements OnInit, OnDestroy {
           // Invoke function every minute while app is in background
           self.checkStoredRoF();
         }, 60000);
-        BackgroundTask.finish({ taskId });
+        BackgroundTask.finish({ taskId }); 
       });
     });
   }
