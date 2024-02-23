@@ -321,4 +321,3 @@ formData.append('image3', image3);
   }
 
 }
-
