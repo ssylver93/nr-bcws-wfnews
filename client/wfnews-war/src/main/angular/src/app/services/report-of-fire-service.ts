@@ -335,14 +335,21 @@ try {
       await this.capacitorService.getData('submissionIDList').then(response => {
         submissionIdList = response;
       })
+
+      console.log('rof: offlineReport: ' + offlineReport)
+      console.log('rof: subList: ' + submissionIdList)
       
       if (offlineReport) {
+        console.log('rof: offlineReport true')
          // Check for duplicate, reject if submissionID has already been stored
         const offlineJson = JSON.parse(offlineReport)
         if(offlineJson?.resource) {
           const resourceJson = JSON.parse(offlineJson.resource)
+          console.log('rof: resourceJson')
+          console.log(resourceJson)
           submissionID = resourceJson?.submissionID
           if (submissionID && submissionIdList?.includes(submissionID)) {
+            console.log('rof: dup stored true')
             duplicateStored = true;
           }
         }
@@ -359,7 +366,9 @@ try {
               await this.capacitorService.removeData('offlineReportData');
               // store submissionID for duplicate check 
               if(submissionID) {
+                console.log('rof: succes ' + submissionID);
                 submissionIdList = submissionIdList ? submissionIdList + ", " +  submissionID : submissionID;
+                console.log('rof: successList' + submissionIdList);
                 await this.capacitorService.saveData('submissionIDList', submissionIdList)
               }
               App.removeAllListeners();
