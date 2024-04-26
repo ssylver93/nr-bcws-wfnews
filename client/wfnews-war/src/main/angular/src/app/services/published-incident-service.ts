@@ -325,6 +325,7 @@ export class PublishedIncidentService {
     const headers = {
       headers: {
         Authorization: `bearer ${this.tokenService.getOauthToken()}`,
+        apikey: this.appConfigService.getConfig().application['wfnewsApiKey'],
       },
     };
     return this.httpClient.put<SituationReport>(url, report, headers);
@@ -339,6 +340,7 @@ export class PublishedIncidentService {
     const headers = {
       headers: {
         Authorization: `bearer ${this.tokenService.getOauthToken()}`,
+        apikey: this.appConfigService.getConfig().application['wfnewsApiKey'],
       },
     };
     return this.httpClient.post<SituationReport>(url, report, headers);
@@ -353,6 +355,7 @@ export class PublishedIncidentService {
     const headers = {
       headers: {
         Authorization: `bearer ${this.tokenService.getOauthToken()}`,
+        apikey: this.appConfigService.getConfig().application['wfnewsApiKey'],
       },
     };
     return this.httpClient.delete<SituationReport>(url, headers);
