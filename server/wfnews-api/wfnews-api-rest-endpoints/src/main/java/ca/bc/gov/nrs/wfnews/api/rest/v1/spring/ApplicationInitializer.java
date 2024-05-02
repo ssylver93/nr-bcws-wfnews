@@ -4,6 +4,7 @@ import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
+import ca.bc.gov.nrs.wfone.api.rest.v1.spring.CorsFilter;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,9 @@ public class ApplicationInitializer extends AbstractSecurityWebApplicationInitia
         versionForwardingFilter.setInitParameter(VersionForwardingFilter.RESPONSE_VERSION_PARAM, "1");
         versionForwardingFilter.setInitParameter(VersionForwardingFilter.DEFAULT_REQUEST_VERSION_PARAM, "1");
         versionForwardingFilter.addMappingForUrlPatterns(null, false, "/*");
+
+        FilterRegistration.Dynamic corsFilter = servletContext.addFilter("CORS Filter", CorsFilter.class);
+        corsFilter.addMappingForUrlPatterns(null, false, "/*");
         
     	LOGGER.info(">beforeSpringSecurityFilterChain");
 	}
