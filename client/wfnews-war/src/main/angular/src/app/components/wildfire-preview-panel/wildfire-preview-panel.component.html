@@ -1,0 +1,54 @@
+<div class="identify-panel">
+    <div class="panel-container" >
+        <div class="identify-panel-title">
+            <mat-icon svgIcon="back-icon-panel" *ngIf="allowBackToIncidentsPanel" (click) = "backToIdentifyPanel()"></mat-icon>
+            <mat-icon  *ngIf="!allowBackToIncidentsPanel"></mat-icon>
+
+            <span class="preview-title">
+                <ng-container *ngIf="identifyItem.layerId === 'active-wildfires-fire-of-note'; else fireIcon">
+                    <img alt="icon" class="incident-icon-title" height="24" width="24" src="/assets/images/local_fire_department.png"/>
+                </ng-container>
+                <ng-template #fireIcon>
+                    <img alt="icon" class="incident-icon-title" src="/assets/images/svg-icons/report.svg">
+                </ng-template>
+                {{displayItemTitle(identifyItem)}}
+            </span>
+            <mat-icon svgIcon="cancel" (click)="closePanel()"></mat-icon>
+        </div>
+        <div class="identify-card">
+            <div class="identify-card-title" *ngIf="identifyIncident">{{identifyIncident.incidentName}}</div>
+            <div class="identify-card-item">
+                <span class="circle-icon {{getStageOfControlIcon(identifyIncident.stageOfControlCode)}}" style="border:none"></span>
+                {{getStageOfControlLabel(identifyIncident.stageOfControlCode)}}
+            </div>
+            <div class="identify-card-item">
+                <img alt="icon" height="20" width="20" src="/assets/images/svg-icons/location-pin.svg" class="incident-icon" >
+                {{identifyIncident.fireCentreName}}
+            </div>
+            <div class="identify-card-item">
+                <img alt="icon" class="incident-icon" src="/assets/images/svg-icons/calendar.svg">
+                Discovered on {{convertToDateYear(identifyIncident.discoveryDate)}}
+            </div>
+            <div class="description-section">
+                <div class="identify-card-description" style="padding:0;" *ngIf="identifyItem.layerId === 'active-wildfires-fire-of-note'">
+                    This wildfire is highly visible or poses a potential threat to public safety.
+                </div>
+                <div class="identify-card-description">
+                    {{getDescription(identifyIncident.stageOfControlCode)}}
+                </div>
+            </div>
+        </div>
+        <div class="button-row">
+            <div class="divider"></div>
+            <div class="buttons">
+                <button mat-flat-button class="mobile-button" (click)="zoomIn()" >
+                    <mat-icon class="incident-icon-title" svgIcon='zoom-in'></mat-icon>
+                    Zoom to
+                </button>
+                <button mat-flat-button class="mobile-button-primary" (click)="enterFullDetail()">
+                    Full Details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

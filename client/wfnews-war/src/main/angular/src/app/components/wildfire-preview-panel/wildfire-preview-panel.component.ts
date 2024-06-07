@@ -1,3 +1,5 @@
+
+
 import { HttpClient } from '@angular/common/http';
 import {
   ChangeDetectorRef,
@@ -27,11 +29,12 @@ import { CommonUtilityService } from '@app/services/common-utility.service';
 import { AppConfigService } from '@wf1/core-ui';
 
 @Component({
-  selector: 'wfnews-draggable-panel',
-  templateUrl: './draggable-panel.component.html',
-  styleUrls: ['./draggable-panel.component.scss'],
+  selector: 'wildfire-preview-panel',
+  templateUrl: './wildfire-preview-panel.component.html',
+  styleUrls: ['./wildfire-preview-panel.component.scss'],
 })
-export class DraggablePanelComponent implements OnInit, OnChanges, OnDestroy {
+export class WildfirePreviewPanelComponent implements OnInit {
+  @Input() identifyItem: any;
   @Input() incidentRefs: any[];
 
   resizeHeight = '10vh'; // Initial height of the panel
@@ -54,7 +57,6 @@ export class DraggablePanelComponent implements OnInit, OnChanges, OnDestroy {
   weatherStations: any[] = [];
   showPanel: boolean;
   allowBackToIncidentsPanel: boolean;
-  identifyItem: any;
   identifyIncident: any = {};
   map: any;
   highlightPolygons: L.Polygon[] = [];
@@ -94,7 +96,7 @@ export class DraggablePanelComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {this.handleLayersSelection();}
 
   ngOnChanges(changes: SimpleChanges) {
     if (
@@ -109,7 +111,7 @@ export class DraggablePanelComponent implements OnInit, OnChanges, OnDestroy {
       const incidentRefs = changes?.incidentRefs?.currentValue;
       if (incidentRefs) {
         this.currentIncidentRefs = incidentRefs;
-        if(!isMobileView()) this.handleLayersSelection();
+        this.handleLayersSelection();
       }
     }
   }
@@ -118,65 +120,12 @@ export class DraggablePanelComponent implements OnInit, OnChanges, OnDestroy {
     returnFromPreiviewPanel: boolean = false,
     openPreviewPanel: boolean = false,
   ) {
-    if (this.marker) {
-      this.marker.remove();
-      this.marker = null;
-    }
-
-    if (this.markerAnimation) {
-      clearInterval(this.markerAnimation);
-    }
-    if (returnFromPreiviewPanel && this.storedIncidentRefs) {
-      // clicked back from preiview panel
-      this.currentIncidentRefs = this.storedIncidentRefs;
-    }
-
-    // re-check for the identified incidents, in case the
-    // list has been modified while loading external data (weather)
-    if (!openPreviewPanel && !returnFromPreiviewPanel) {
-      // open preiview for notification
-      if (
-        !(
-          this.currentIncidentRefs.length === 1 &&
-          this.currentIncidentRefs[0].notification
-        )
-      ) {
-        try {
-          const identFeatureSet = getActiveMap().$viewer.identified.featureSet;
-          const identifiedIncidents = Object.keys(identFeatureSet).map(
-            (key) => identFeatureSet[key],
-          );
-
-          // if (
-          //   identifiedIncidents?.length !== this.currentIncidentRefs?.length
-          // ) {
-          //   this.currentIncidentRefs = identifiedIncidents;
-          // }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    }
-    if (this.currentIncidentRefs.length === 1 && this.allowBackToIncidentsPanel) {
+    
+    if (true) {
       // only show preview detial if it is through openPreviewPanel(). We will always the preview list page by clicking on map, even there is only single item.
-      this.showPanel = true;
-      const viewer = getActiveMap().$viewer;
-      for (const polygon of this.highlightPolygons) {
-        viewer.map.removeLayer(polygon);
-      }
-      if (this.pinDrop) {
-        viewer.map.removeLayer(this.pinDrop);
-      }
-
-      // single feature within clicked area
-      this.showPanel = true;
-      this.identifyItem = this.currentIncidentRefs[0];
       let incidentNumber = null;
       let fireYear = null;
-      if (this.identifyItem.layerId === 'fire-perimeters') {
-        incidentNumber = this.identifyItem.properties.FIRE_NUMBER;
-        fireYear = this.identifyItem.properties.FIRE_YEAR;
-      } else if (
+      if (
         this.identifyItem.properties?.incident_number_label &&
         this.identifyItem.properties?.fire_year
       ) {
@@ -906,3 +855,4 @@ return 'Unknown';
 
   }
 }
+

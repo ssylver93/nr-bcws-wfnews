@@ -11,7 +11,7 @@
                 <div class="criteria-title">Wildfires</div>
                 <div *ngFor="let wildfire of filteredWildfires" class="widget-card">
                     <div class="widget-row">
-                        <div class="left-content">
+                        <div class="left-content" (click)="openPreviewPanel(wildfire)">
                             <img alt="icon" *ngIf="wildfire.layerId === 'active-wildfires-fire-of-note'" class="incident-icon-title" src="/assets/images/local_fire_department.png"/>
                             <div class="wildfire-icon"><span class="circle-icon {{wildfire.layerId === 'fire-perimeters' ? convertFirePerimeterFireStatus(wildfire.properties.FIRE_STATUS) : wildfire.layerId }} list"></span></div>
                             {{displayWildfireName(wildfire)}}
@@ -40,7 +40,7 @@
             <div *ngIf="filteredEvacs && filteredEvacs.length">
                 <div class="criteria-title">Evacuations</div>
                 <div *ngFor="let evac of filteredEvacs" class="widget-card">
-                    <div class="widget-row">
+                    <div class="widget-row" (click)="openPreviewPanel(event)">
                         <div class="left-content">
                             <img *ngIf="evac.properties.ORDER_ALERT_STATUS === 'Alert'" class="incident-icon-title" src="/assets/images/svg-icons/evacuation-alert.svg" alt="Order">
                             <img *ngIf="evac.properties.ORDER_ALERT_STATUS === 'Order'" class="incident-icon-title" src="/assets/images/svg-icons/evacuation-order.svg" alt="Order">
@@ -250,4 +250,5 @@
           </div>
         </div>
     </div>
+    <wildfire-preview-panel *ngIf="showPanel && identifyItem && identifyIncident" [identifyItem]="identifyItem"></wildfire-preview-panel>
 </div>

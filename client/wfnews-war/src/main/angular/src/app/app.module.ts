@@ -290,6 +290,7 @@ import { CustomReuseStrategy } from './shared/route/custom-route-reuse-strategy'
 import { initialRootState, rootEffects, rootReducers } from './store';
 import { provideBootstrapEffects } from './utils';
 import { IdentifyPanel } from './components/identify-panel/identify-panel.component';
+import { WildfirePreviewPanelComponent } from './components/wildfire-preview-panel/wildfire-preview-panel.component';
 
 // Copied from im-external.module  TODO: consolidate in one place
 export const DATE_FORMATS = {
@@ -492,6 +493,7 @@ export const DATE_FORMATS = {
     IndustrialActivitiesCardComponent,
     UpdateFrequencyCardComponent,
     FireDangerDetailsComponent,
+    WildfirePreviewPanelComponent,
   ],
   imports: [
     MatSortModule,
