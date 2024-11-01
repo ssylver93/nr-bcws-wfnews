@@ -272,19 +272,29 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   initializeDeepLinks() {
+    console.log('appUrlOpen: initializing deep links');
     // add listener to enable Capacitor deep links functionality
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
       this.zone.run(() => {
-        // remove https:// and http:// from baseUrl
-        const domain = this.appConfigService.getConfig().application.baseUrl.replace(/^https?:\/\//i, '');
+        try {
+          console.log('appUrlOpen url: ' + event.url);
+          // remove https:// and http:// from baseUrl
+          const domain = this.appConfigService.getConfig().application.baseUrl.replace(/^https?:\/\//i, '');
 
-        // The pathArray is now like ['wildfiresituation.nrs.gov.bc.ca', '/map?longitude=-124.62025&latitude=53.231&activeWildfires=true']
-        const pathArray = event.url.split(domain);
+          console.log('appUrlOpen pathArray: ' + domain);
 
-        // Get the last element with pop()
-        const appPath = pathArray.pop();
-        if (appPath) {
-          this.router.navigateByUrl(appPath);
+          // The pathArray is now like ['wildfiresituation.nrs.gov.bc.ca', '/map?longitude=-124.62025&latitude=53.231&activeWildfires=true']
+          const pathArray = event.url.split(domain);
+          console.log('appUrlOpen pathArray: ' + pathArray);
+
+          // Get the last element with pop()
+          const appPath = pathArray.pop();
+          if (appPath) {
+            console.log('appUrlOpen appPath: ' + appPath);
+            this.router.navigateByUrl(appPath);
+          }
+        } catch (error) {
+          console.log('appUrlOpen: initializing deep links');
         }
       });
     });
