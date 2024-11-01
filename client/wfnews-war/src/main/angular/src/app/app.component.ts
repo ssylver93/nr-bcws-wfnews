@@ -294,7 +294,7 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
             this.router.navigateByUrl(appPath);
           }
         } catch (error) {
-          console.log('appUrlOpen: initializing deep links');
+          console.error('appUrlOpen: error initializing deep links', error);
         }
       });
     });
