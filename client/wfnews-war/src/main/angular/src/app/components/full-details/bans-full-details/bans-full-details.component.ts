@@ -267,7 +267,8 @@ export class BansFullDetailsComponent implements OnInit {
   }
 
   navToBulletinUrl() {
-    window.open(this.banData.bulletinUrl ? this.banData.bulletinUrl : this.appConfigService.getConfig().externalAppConfig['currentRestrictions'] as unknown as string, '_blank');
+    window.open(this.banData.bulletinUrl ? this.banData.bulletinUrl 
+      : this.appConfigService.getConfig().externalAppConfig['currentRestrictions'] as unknown as string, '_blank');
   }
 
   shareMobile() {

@@ -140,7 +140,6 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
   public url;
   public snowPlowHelper = snowPlowHelper;
   public isMobileView = mobileView;
-  public TOOLTIP_DELAY = 500;
 
   constructor(
     protected appConfigService: AppConfigService,
@@ -419,7 +418,7 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
   }
 
   initFooterMenu() {
-    this.footerMenu = (this.applicationConfig.device == 'desktop'
+    this.footerMenu = (this.applicationConfig.device === 'desktop'
       ? [
         new RouterLink(
           'Home',

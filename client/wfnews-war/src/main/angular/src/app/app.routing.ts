@@ -20,7 +20,8 @@ import { MoreComponent } from '@app/components/more/more.component';
 import { ContactWidgetDialogComponent } from './components/sticky-widget/contact-widget-dialog/contact-widget-dialog.component';
 import { AddSavedLocationComponent } from '@app/components/saved/add-saved-location/add-saved-location.component';
 import { SavedLocationFullDetailsComponent } from './components/saved/saved-location-full-details/saved-location-full-details.component';
-import { SavedLocationWeatherDetailsComponent } from './components/saved/saved-location-weather-details/saved-location-weather-details.component';
+import { SavedLocationWeatherDetailsComponent } 
+  from './components/saved/saved-location-weather-details/saved-location-weather-details.component';
 import { PublicEventPageComponent } from '@app/components/public-event-page/public-event-page.component';
 import { DeviceRedirectGuard } from '@app/services/device-redirect-guard';
 // Components
