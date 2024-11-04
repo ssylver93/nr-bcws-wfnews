@@ -14,6 +14,7 @@ import * as L from 'leaflet';
 import { setDisplayColor } from '@app/utils';
 import { WatchlistService } from '@app/services/watchlist-service';
 import { CommonUtilityService } from '@app/services/common-utility.service';
+import { Meta } from '@angular/platform-browser';
 
 export class AreaRestriction {
   public name: string;
@@ -58,7 +59,8 @@ export class AreaRestrictionsFullDetailsComponent implements OnInit {
     private publishedIncidentService: PublishedIncidentService,
     private route: Route,
     private watchlistService: WatchlistService,
-    private commonUtilityService: CommonUtilityService
+    private commonUtilityService: CommonUtilityService,
+    private metaService: Meta,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -68,6 +70,7 @@ export class AreaRestrictionsFullDetailsComponent implements OnInit {
       returnExtent: false,
     });
     this.initMap();
+    this.metaService.updateTag({ property: 'og:title', content: this.restrictionData?.name });
   }
 
   async initMap() {

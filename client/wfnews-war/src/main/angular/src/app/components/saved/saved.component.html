@@ -13,7 +13,7 @@
         </span>
       </div>
       <div class="section-card" *ngIf="!savedLocations.length" (click)="addNewLocation()">
-          <div class="add-location-content">
+          <div class="add-location-content flex-enabled">
               <img alt="icon" class="location-icon" src="/assets/images/svg-icons/carbon_location.svg">
               <span>Add a saved location to receive notifications</span>
           </div>
@@ -112,7 +112,7 @@
           <span class="section-header">Saved Wildfires</span>
       </div>
       <div class="section-card-wildfires" *ngIf="!wildFireWatchlist.length">
-          <div class="saved-wildfires-content">
+          <div class="saved-wildfires-content flex-enabled">
                 <img alt="icon" class="location-icon" src="/assets/images/svg-icons/saved-blue-border.svg">
               <span>Save a wildfire on the map to easily find here later</span>
           </div>

@@ -36,6 +36,7 @@ import {
   setDisplayColor
 } from '../../../utils';
 import { ContactUsDialogComponent } from '../../admin-incident-form/contact-us-dialog/contact-us-dialog.component';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'incident-header-panel',
@@ -121,6 +122,7 @@ export class IncidentHeaderPanelComponent implements AfterViewInit, OnInit {
     private commonUtilityService: CommonUtilityService,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
+    private metaService: Meta,
 
   ) {
     /* Empty, just here for injection */
@@ -147,6 +149,7 @@ export class IncidentHeaderPanelComponent implements AfterViewInit, OnInit {
         }
       }
     }
+    this.metaService.updateTag({ property: 'og:title', content: `${this.incident?.incidentName}`});
   }
 
   ngAfterViewInit(): void {

@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 import { AppConfigService, TokenService } from '@wf1/core-ui';
 import {
   RouterLink,
@@ -37,6 +37,7 @@ import {
 } from '@app/services/capacitor-service';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 import { App, URLOpenListenerEvent } from '@capacitor/app';
+import { filter } from 'rxjs/operators';
 
 export const ICON = {
   ADVISORIES: 'advisories',
@@ -156,6 +157,8 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
     protected capacitorService: CapacitorService,
     protected commonUtilityService: CommonUtilityService,
     protected zone: NgZone,
+    protected titleService: Title,
+    protected metaService: Meta,
   ) {
   }
 
@@ -269,6 +272,23 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
         },
       );
     }
+
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.setDefaultMetaTags();
+    });
+  }
+
+  setDefaultMetaTags(){
+    const imageUrl = this.appConfigService.getConfig().application.baseUrl.toString() + 'assets/images/share-wildfire.png';
+    this.titleService.setTitle('BC Wildfire Service');
+
+    this.metaService.updateTag({ property: 'og:title', content: 'BC Wildfire Service' });
+    this.metaService.updateTag({ property: 'og:image', content: imageUrl });
+    this.metaService.updateTag({ property: 'og:site_name', content: 'BC Wildfire Service' });
+    this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.metaService.updateTag({ name: 'twitter:site', content: '@BCGovFireInfo' });
   }
 
   initializeDeepLinks() {

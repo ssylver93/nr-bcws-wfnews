@@ -8,6 +8,7 @@ import { AppConfigService } from '@wf1/core-ui';
 import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { CommonUtilityService } from '@app/services/common-utility.service';
+import { Meta } from '@angular/platform-browser';
 
 export class BanProhibition {
   public id: string;
@@ -41,7 +42,8 @@ export class BansFullDetailsComponent implements OnInit {
     private publishedIncidentService: PublishedIncidentService,
     private httpClient: HttpClient,
     private route: Route,
-    private commonUtilityService: CommonUtilityService
+    private commonUtilityService: CommonUtilityService,
+    private metaService: Meta,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -51,6 +53,7 @@ export class BansFullDetailsComponent implements OnInit {
       returnExtent: false,
     });
     this.initMap();
+    this.metaService.updateTag({ property: 'og:title', content: `Fire Ban on ${this.banData.description} Open Fires`});
   }
 
   async initMap() {

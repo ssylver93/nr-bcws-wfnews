@@ -14,6 +14,7 @@ import { ShareDialogComponent } from '@app/components/admin-incident-form/share-
 import { MatDialog } from '@angular/material/dialog';
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
 import { map } from 'rxjs/operators';
+import { Meta, Title } from '@angular/platform-browser';
 
 const MAX_CACHE_AGE = 30 * 1000;
 
@@ -50,6 +51,9 @@ export class CommonUtilityService {
     private capacitorService: CapacitorService,
     private router: Router,
     private dialog: MatDialog,
+    private titleService: Title,
+    private metaService: Meta,
+
   ) {
     setTimeout(() => (this.rofService = injector.get(ReportOfFireService)));
   }
@@ -361,11 +365,14 @@ export class CommonUtilityService {
   shareMobile(shareTitle: string) {
     const currentUrl = this.appConfigService.getConfig().application.baseUrl.toString() + this.router.url.slice(1);
     // contents of the share is out of scope for wfnews-2403. Enhancment should be available in wfnews-2422
+    const imageUrl = this.appConfigService.getConfig().application.baseUrl.toString() + '/assets/images/share-wildfire.png';
+
     Share.share({
       title: shareTitle,
-      text: 'Share the incident update!',
+      text: 'Share the incident update',
       url: currentUrl,
-      dialogTitle: 'Share Wildfire News Link'
+      dialogTitle: 'Share Wildfire News Link',
+      files: [imageUrl] 
     }).then(() => {
       console.log('Sharing successful');
     }).catch(err => {
