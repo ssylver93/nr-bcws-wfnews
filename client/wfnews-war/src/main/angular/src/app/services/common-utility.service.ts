@@ -372,7 +372,6 @@ export class CommonUtilityService {
       text: 'Share the incident update',
       url: currentUrl,
       dialogTitle: 'Share Wildfire News Link',
-      files: [imageUrl] 
     }).then(() => {
       console.log('Sharing successful');
     }).catch(err => {

@@ -64,6 +64,8 @@ export class EvacAlertFullDetailsComponent implements OnInit {
     });
     this.initMap();
     this.metaService.updateTag({ property: 'og:title', content: `Evacuation Alert for ${this.evacData.name}`});
+    this.metaService.updateTag({ name: 'description', content: `Evacuation Alert for ${this.evacData.name}` });
+
   }
 
   async initMap() {
