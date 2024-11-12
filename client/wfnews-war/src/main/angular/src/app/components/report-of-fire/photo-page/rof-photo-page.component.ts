@@ -4,7 +4,7 @@ import {
   ChangeDetectorRef,
   ElementRef,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import {
   Camera,
@@ -14,7 +14,7 @@ import {
   Photo,
 } from '@capacitor/camera';
 import { CommonUtilityService } from '@app/services/common-utility.service';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { Capacitor } from '@capacitor/core';
 
 @Component({
@@ -23,7 +23,7 @@ import { Capacitor } from '@capacitor/core';
   styleUrls: ['./rof-photo-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFPhotoPage extends RoFPage {
+export class RoFPhotoPage extends RoFPageComponent {
   public disableNext = true;
   captureUrl: any;
   isCaptured: boolean;
@@ -34,7 +34,7 @@ export class RoFPhotoPage extends RoFPage {
     private changeDetector: ChangeDetectorRef,
     private el: ElementRef,
     private commonUtilityService: CommonUtilityService,
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private cdr: ChangeDetectorRef,
   ) {
     super();

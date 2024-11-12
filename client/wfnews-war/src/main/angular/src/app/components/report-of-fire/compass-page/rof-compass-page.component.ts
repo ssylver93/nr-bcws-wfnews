@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import { CommonUtilityService } from '../../../services/common-utility.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
   styleUrls: ['./rof-compass-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class RoFCompassPage extends RoFPage implements OnInit {
+export class RoFCompassPageComponent extends RoFPageComponent implements OnInit {
   public compassFaceUrl: string;
   public compassHandUrl: string;
   public compassHeading = 0;
@@ -60,8 +60,8 @@ export class RoFCompassPage extends RoFPage implements OnInit {
         if (equalsIgnoreCase(response, 'granted')) {
           window.addEventListener(
             'deviceorientation',
-            (function(compass) {
-              return function(e) {
+            (function (compass) {
+              return function (e) {
                 self.handler(e, compass);
               };
             })(self),
@@ -78,8 +78,8 @@ export class RoFCompassPage extends RoFPage implements OnInit {
       } else {
         window.addEventListener(
           'deviceorientationabsolute',
-          (function(compass) {
-            return function(e) {
+          (function (compass) {
+            return function (e) {
               self.handler(e, compass);
             };
           })(self),
@@ -135,13 +135,13 @@ export class RoFCompassPage extends RoFPage implements OnInit {
         }
 
         if (document.getElementById('compass-face-image')) {
-document.getElementById('compass-face-image').style.transform =
+          document.getElementById('compass-face-image').style.transform =
             `rotate(${-compassHeading}deg)`;
-}
+        }
         if (document.getElementById('compass-heading')) {
-document.getElementById('compass-heading').innerText =
+          document.getElementById('compass-heading').innerText =
             compassHeading.toString() + '° ' + cardinalDirection;
-}
+        }
 
         self.reportOfFire.compassHeading = compassHeading;
 
@@ -168,9 +168,9 @@ document.getElementById('compass-heading').innerText =
       }
 
       if (document.getElementById('location')) {
-document.getElementById('location').innerText =
+        document.getElementById('location').innerText =
           this.currentLat + ',' + this.currentLong;
-}
+      }
     } catch (err) {
       console.error('Could not find current location', err);
     }

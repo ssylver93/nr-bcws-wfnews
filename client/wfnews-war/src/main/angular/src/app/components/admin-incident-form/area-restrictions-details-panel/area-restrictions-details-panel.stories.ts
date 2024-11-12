@@ -1,6 +1,6 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 
-import { AreaRestrictionsDetailsPanel } from './area-restrictions-details-panel.component';
+import { AreaRestrictionsDetailsPanelComponent } from './area-restrictions-details-panel.component';
 import { AGOLService } from '@app/services/AGOL-service';
 import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -10,14 +10,14 @@ const mockAgolService = {
     getAreaRestrictions: () => new Observable()
 };
 
-const formGroup: UntypedFormGroup = new UntypedFormGroup({})
+const formGroup: UntypedFormGroup = new UntypedFormGroup({});
 
-const meta: Meta<AreaRestrictionsDetailsPanel> = {
+const meta: Meta<AreaRestrictionsDetailsPanelComponent> = {
     title: 'Panels/AreaRestrictionsDetailsPanel',
-    component: AreaRestrictionsDetailsPanel,
+    component: AreaRestrictionsDetailsPanelComponent,
     decorators: [
         moduleMetadata({
-            declarations: [AreaRestrictionsDetailsPanel],
+            declarations: [AreaRestrictionsDetailsPanelComponent],
             imports: [MatCardModule,
                 ReactiveFormsModule,
             ],
@@ -31,25 +31,26 @@ const meta: Meta<AreaRestrictionsDetailsPanel> = {
 
 export default meta;
 
-type Story = StoryObj<AreaRestrictionsDetailsPanel>;
+type Story = StoryObj<AreaRestrictionsDetailsPanelComponent>;
 
 // Story for the default desktop view
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const Default: Story = {
     args: {
         incident: {
-            aviationComments: "These are aviation comments",
+            aviationComments: 'These are aviation comments',
             aviationInd: true,
             cause: 2,
-            causeComments: "These are cause comments",
+            causeComments: 'These are cause comments',
             contact: {
                 isPrimary: true,
-                fireCentre: "Coastal Fire Centre",
-                phoneNumber: "250-951-4209",
-                emailAddress: "BCWS.COFCInformationOfficer@gov.bc.ca",
+                fireCentre: 'Coastal Fire Centre',
+                phoneNumber: '250-951-4209',
+                emailAddress: 'BCWS.COFCInformationOfficer@gov.bc.ca',
             },
-            crewsComments: "These are crews comments",
+            crewsComments: 'These are crews comments',
             evacOrders: [],
-            fireName: "Test fire",
+            fireName: 'Test fire',
             fireNumber: 45052,
             fireOfNote: false,
             wasFireOfNote: false,
@@ -57,27 +58,27 @@ export const Default: Story = {
                 x: 49.5,
                 y: -123.6,
             },
-            heavyEquipmentComments: "These are heavy equipment comments",
+            heavyEquipmentComments: 'These are heavy equipment comments',
             heavyEquipmentInd: true,
             incidentData: null,
-            incidentManagementComments: "These are incident management comments",
+            incidentManagementComments: 'These are incident management comments',
             incidentManagementInd: true,
             incidentNumberSequence: 1075,
-            incidentLabel: "K45052",
+            incidentLabel: 'K45052',
             incidentOverview: '',
             lastPublished: 1714506966286,
             location: undefined,
             mapAttachments: [],
             publishedStatus: 'PUBLISHED',
-            responseComments: "These are response comments",
-            responseTypeCode: "FULL",
+            responseComments: 'These are response comments',
+            responseTypeCode: 'FULL',
             sizeComments: undefined,
             sizeHectares: 10,
             sizeType: 1,
             stageOfControlCode: 2,
-            structureProtectionComments: "These are structure comments",
+            structureProtectionComments: 'These are structure comments',
             structureProtectionInd: false,
-            traditionalTerritory: "Salish Territory",
+            traditionalTerritory: 'Salish Territory',
             wildfireIncidentGuid: '19B36F72FA641A81E0631D09228ECBDA',
             wildfireYear: new Date().getFullYear(),
             wildifreCrewsInd: true,
@@ -88,7 +89,7 @@ export const Default: Story = {
             structureProtectionResourceCount: 1,
             signOffSignatureGuid: undefined,
         },
-        formGroup: formGroup
+        formGroup
     }
 };
 

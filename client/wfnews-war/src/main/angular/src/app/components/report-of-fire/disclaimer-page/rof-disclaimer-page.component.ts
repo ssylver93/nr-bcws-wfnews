@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 import { CapacitorService } from '@app/services/capacitor-service';
@@ -9,7 +9,7 @@ import { CapacitorService } from '@app/services/capacitor-service';
   templateUrl: './rof-disclaimer-page.component.html',
   styleUrls: ['./rof-disclaimer-page.component.scss'],
 })
-export class RoFDisclaimerPage extends RoFPage {
+export class RoFDisclaimerPageComponent extends RoFPageComponent {
   public imageUrl: string;
   public message: string;
   public currentBrowser: string;
@@ -31,6 +31,7 @@ export class RoFDisclaimerPage extends RoFPage {
       this.commonUtilityService.checkOnline().then((result) => {
         if (!result) {
           this.message =
+            // eslint-disable-next-line max-len
             'Offline reporting is only available in the BC Wildfire Service app which you can find on the Apple App Store or Google Play Store.';
           this.hideButtons = true;
         }

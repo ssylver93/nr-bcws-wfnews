@@ -94,15 +94,15 @@ import { AppComponent } from './app.component';
 import { ROUTING } from './app.routing';
 import { ActiveWildfireMapComponent } from './components/active-wildfire-map/active-wildfire-map.component';
 import { AdminIncidentFormDesktop } from './components/admin-incident-form/admin-incident-form.component.desktop';
-import { AreaRestrictionsDetailsPanel } from './components/admin-incident-form/area-restrictions-details-panel/area-restrictions-details-panel.component';
+import { AreaRestrictionsDetailsPanelComponent } from './components/admin-incident-form/area-restrictions-details-panel/area-restrictions-details-panel.component';
 import { ContactUsDialogComponent } from './components/admin-incident-form/contact-us-dialog/contact-us-dialog.component';
-import { ContactsDetailsPanel } from './components/admin-incident-form/contacts-details-panel/contacts-details-panel.component';
-import { EvacOrdersDetailsPanel } from './components/admin-incident-form/evac-orders-details-panel/evac-orders-details-panel.component';
+import { ContactsDetailsPanelComponent } from './components/admin-incident-form/contacts-details-panel/contacts-details-panel.component';
+import { EvacOrdersDetailsPanelComponent } from './components/admin-incident-form/evac-orders-details-panel/evac-orders-details-panel.component';
 import { EditImageDialogComponent } from './components/admin-incident-form/image-gallery-panel/edit-image-dialog/edit-image-dialog.component';
-import { ImageCardPanel } from './components/admin-incident-form/image-gallery-panel/image-card-component/image-card-panel.component';
-import { ImageGalleryPanel } from './components/admin-incident-form/image-gallery-panel/image-gallery-panel.component';
+import { ImageCardPanelComponent } from './components/admin-incident-form/image-gallery-panel/image-card-component/image-card-panel.component';
+import { ImageGalleryPanelComponent } from './components/admin-incident-form/image-gallery-panel/image-gallery-panel.component';
 import { UploadImageDialogComponent } from './components/admin-incident-form/image-gallery-panel/upload-image-dialog/upload-image-dialog.component';
-import { IncidentDetailsPanel } from './components/admin-incident-form/incident-details-panel/incident-details-panel.component';
+import { IncidentDetailsPanelComponent } from './components/admin-incident-form/incident-details-panel/incident-details-panel.component';
 import { EditMapDialogComponent } from './components/admin-incident-form/maps-panel/edit-map-dialog/edit-map-dialog.component';
 import { MapsPanel } from './components/admin-incident-form/maps-panel/maps-panel.component';
 import { UploadMapDialogComponent } from './components/admin-incident-form/maps-panel/upload-map-dialog/upload-map-dialog.component';
@@ -222,7 +222,7 @@ import { ImagePanelComponent } from './components/public-incident-page/incident-
 import { IncidentGalleryAllMediaMobileComponent } from './components/public-incident-page/incident-gallery-panel/incident-gallery-all-media-mobile/incident-gallery-all-media-mobile.component';
 import { IncidentGalleryImagesMobileComponent } from './components/public-incident-page/incident-gallery-panel/incident-gallery-images-mobile/incident-gallery-images-mobile.component';
 import { IncidentGalleryPanelMobileComponent } from './components/public-incident-page/incident-gallery-panel/incident-gallery-panel-mobile/incident-gallery-panel-mobile.component';
-import { IncidentGalleryPanel } from './components/public-incident-page/incident-gallery-panel/incident-gallery-panel.component';
+import { IncidentGalleryPanelComponent } from './components/public-incident-page/incident-gallery-panel/incident-gallery-panel.component';
 import { IncidentGalleryVideosMobileComponent } from './components/public-incident-page/incident-gallery-panel/incident-gallery-videos-mobile/incident-gallery-videos-mobile.component';
 import { VideoPanelComponent } from './components/public-incident-page/incident-gallery-panel/video-panel/video-panel.component';
 import { AreaRestrictionHeaderComponent } from './components/public-incident-page/incident-info-header/area-restriction-header/area-restriction-header.component';
@@ -252,17 +252,17 @@ import { TextCardComponent } from './components/public-incident-page/incident-ta
 import { ContactUsBannerComponent } from './components/public-incident-page/incident-tabs/contact-us-banner/contact-us-banner.component';
 import { IncidentTabsComponent } from './components/public-incident-page/incident-tabs/incident-tabs.component';
 import { PublicIncidentPageComponent } from './components/public-incident-page/public-incident-page.component';
-import { RoFCommentsPage } from './components/report-of-fire/comment-page/rof-comments-page.component';
+import { RoFCommentsPageComponent } from './components/report-of-fire/comment-page/rof-comments-page.component';
 import { LocationServicesDialogComponent } from './components/report-of-fire/compass-page/location-services-dialog/location-services-dialog.component';
-import { RoFCompassPage } from './components/report-of-fire/compass-page/rof-compass-page.component';
-import { RoFComplexQuestionPage } from './components/report-of-fire/complex-question-page/rof-complex-question-page.component';
-import { RoFContactPage } from './components/report-of-fire/contact-page/rof-contact-page.component';
+import { RoFCompassPageComponent } from './components/report-of-fire/compass-page/rof-compass-page.component';
+import { RoFComplexQuestionPageComponent } from './components/report-of-fire/complex-question-page/rof-complex-question-page.component';
+import { RoFContactPageComponent } from './components/report-of-fire/contact-page/rof-contact-page.component';
 import { DialogLocationComponent } from './components/report-of-fire/dialog-location/dialog-location.component';
-import { RoFDisclaimerPage } from './components/report-of-fire/disclaimer-page/rof-disclaimer-page.component';
-import { RoFLocationPage } from './components/report-of-fire/location-page/rof-location-page.component';
+import { RoFDisclaimerPageComponent } from './components/report-of-fire/disclaimer-page/rof-disclaimer-page.component';
+import { RoFLocationPageComponent } from './components/report-of-fire/location-page/rof-location-page.component';
 import { RoFPermissionsPage } from './components/report-of-fire/permissions-page/rof-permissions-page.component';
 import { RoFPhotoPage } from './components/report-of-fire/photo-page/rof-photo-page.component';
-import { ReportOfFirePage } from './components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from './components/report-of-fire/report-of-fire.component';
 import { RofCallPage } from './components/report-of-fire/rof-callback-page/rof-call-page.component';
 import { RoFSimpleQuestionPage } from './components/report-of-fire/simple-question-page/rof-simple-question-page.component';
 import { RoFTitlePage } from './components/report-of-fire/title-page/rof-title-page.component';
@@ -344,25 +344,25 @@ export const DATE_FORMATS = {
     SingleSelectDirective,
     AdminContainerDesktop,
     AdminIncidentFormDesktop,
-    IncidentDetailsPanel,
+    IncidentDetailsPanelComponent,
     ResponseDetailsPanel,
-    ContactsDetailsPanel,
-    EvacOrdersDetailsPanel,
-    AreaRestrictionsDetailsPanel,
+    ContactsDetailsPanelComponent,
+    EvacOrdersDetailsPanelComponent,
+    AreaRestrictionsDetailsPanelComponent,
     IncidentContainerDesktop,
     MapsPanel,
     MessageDialogComponent,
     EditMapDialogComponent,
     UploadMapDialogComponent,
     SignOutPageComponent,
-    ImageGalleryPanel,
+    ImageGalleryPanelComponent,
     EditImageDialogComponent,
     UploadImageDialogComponent,
     StickyWidgetComponent,
     ContactWidgetDialogComponent,
     PublishDialogComponent,
     UnsavedChangesDialog,
-    ImageCardPanel,
+    ImageCardPanelComponent,
     Dashboard,
     AdminEditDashboard,
     WeatherPanelComponent,
@@ -373,7 +373,7 @@ export const DATE_FORMATS = {
     WildfiresListContainerDesktop,
     PanelWildfireStageOfControlContainerDesktop,
     PublicIncidentPageComponent,
-    IncidentGalleryPanel,
+    ImageGalleryPanelComponent,
     IncidentHeaderPanelComponent,
     IncidentInfoPanelComponent,
     IncidentMapsPanel,
@@ -403,6 +403,7 @@ export const DATE_FORMATS = {
     IncidentMapsPanelMobileComponent,
     ContactUsDialogComponent,
     ShareDialogComponent,
+    IncidentGalleryPanelComponent,
     IncidentGalleryPanelMobileComponent,
     IncidentGalleryAllMediaMobileComponent,
     IncidentGalleryImagesMobileComponent,
@@ -412,20 +413,20 @@ export const DATE_FORMATS = {
     ScrollToTopComponent,
     MapToggleButtonComponent,
     AlertOrderBannerComponent,
-    ReportOfFirePage,
+    ReportOfFirePageComponent,
     RoFTitlePage,
     RoFPermissionsPage,
     RoFSimpleQuestionPage,
-    RoFComplexQuestionPage,
-    RoFContactPage,
+    RoFComplexQuestionPageComponent,
+    RoFContactPageComponent,
     RoFPhotoPage,
-    RoFLocationPage,
-    RoFCommentsPage,
+    RoFLocationPageComponent,
+    RoFCommentsPageComponent,
     RoFReviewPage,
-    RoFCompassPage,
+    RoFCompassPageComponent,
     LocationServicesDialogComponent,
     DialogLocationComponent,
-    RoFDisclaimerPage,
+    RoFDisclaimerPageComponent,
     RofCallPage,
     DialogExitComponent,
     OverviewWidget,

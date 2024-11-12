@@ -27,7 +27,7 @@
     },
     {
       "id": "disclaimer-page",
-      "type": "RoFDisclaimerPage",
+      "type": "RoFDisclaimerPageComponent",
       "title": "You are currently offline",
       "message": "This application supports offline reporting. The information you provide in this report will be sent to the Provincial Wildfire Reporting Centre as soon as your device connects to Wi-Fi or cellular data. Once the reporting centre has received your report, they will share it with the appropriate fire centre for response.",
       "allowSkip": false,
@@ -66,21 +66,24 @@
     },
     {
       "id": "contact-page",
-      "type": "RoFContactPage",
+      "type": "RoFContactPageComponent",
       "title": "Are you available for a call back if we have further inquiries about your report?",
       "offLineTitle": "Are you available for a call back?",
       "message": "",
       "offLineMessage": "We may want to speak with you to follow up on your submission. Is it okay if we call you once we’ve received your report?",
       "allowSkip": true,
       "allowExit": true,
-      "updateAttribute": ["fullName", "phoneNumber"],
+      "updateAttribute": [
+        "fullName",
+        "phoneNumber"
+      ],
       "showProgress": false,
       "previousId": "callback-page",
       "nextId": "review-page"
     },
     {
       "id": "compass-page",
-      "type": "RoFCompassPage",
+      "type": "RoFCompassPageComponent",
       "title": "What direction is the fire?",
       "message": "Hold your phone steady and orient it so that the yellow arrow on the compass is pointing in the direction of the fire.",
       "allowSkip": true,
@@ -94,7 +97,7 @@
     },
     {
       "id": "distance-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "How far away is the fire?",
       "message": "Choose the option you think is most accurate.",
       "allowSkip": true,
@@ -140,7 +143,7 @@
     },
     {
       "id": "location-page",
-      "type": "RoFLocationPage",
+      "type": "RoFLocationPageComponent",
       "title": "Where is the Wildfire?",
       "message": "Center the yellow crosshairs on the location of the fire by moving the map with your finger. If you can’t locate the fire, tap skip.",
       "allowSkip": true,
@@ -164,7 +167,7 @@
     },
     {
       "id": "smoke-color-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "What colour is the smoke?",
       "message": "Select all that apply",
       "allowSkip": true,
@@ -210,7 +213,7 @@
     },
     {
       "id": "fire-size-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "How big is the fire?",
       "message": "",
       "allowSkip": true,
@@ -260,7 +263,7 @@
     },
     {
       "id": "response-details-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "Are there any signs of response?",
       "message": "Select all that apply",
       "allowSkip": true,
@@ -319,7 +322,7 @@
     },
     {
       "id": "fire-spread-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "How quickly is the fire spreading?",
       "message": "",
       "allowSkip": true,
@@ -349,7 +352,7 @@
     },
     {
       "id": "what-is-burning-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "What is burning?",
       "message": "Select all that apply",
       "allowSkip": true,
@@ -409,7 +412,7 @@
     },
     {
       "id": "infrastructure-details-page",
-      "type": "RoFComplexQuestionPage",
+      "type": "RoFComplexQuestionPageComponent",
       "title": "Is there any infrastructure at risk?",
       "message": "Select all that apply",
       "allowSkip": true,
@@ -455,7 +458,7 @@
     },
     {
       "id": "comments-page",
-      "type": "RoFCommentsPage",
+      "type": "RoFCommentsPageComponent",
       "title": "Is there anything else you'd like us to know?",
       "message": "",
       "allowSkip": true,

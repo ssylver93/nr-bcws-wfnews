@@ -3,9 +3,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 
 @Component({
@@ -14,11 +14,11 @@ import { CommonUtilityService } from '@app/services/common-utility.service';
   styleUrls: ['./rof-contact-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFContactPage extends RoFPage {
+export class RoFContactPageComponent extends RoFPageComponent {
   isEditMode = false;
   offLine = false;
   public constructor(
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private commonUtilityService: CommonUtilityService,
     private cdr: ChangeDetectorRef,
   ) {
@@ -74,5 +74,5 @@ export class RoFContactPage extends RoFPage {
       this.reportOfFirePage.selectPage('review-page', null, false);
     }
   }
-  
+
 }

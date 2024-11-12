@@ -13,14 +13,14 @@ import { FireCentres } from '../../../utils';
     '../../base/base.component.scss',
   ],
 })
-export class ContactsDetailsPanel implements OnInit {
+export class ContactsDetailsPanelComponent implements OnInit {
   @Input() public readonly formGroup: UntypedFormGroup;
   @Input() public incident;
 
   public contacts: any;
   public fireCentreOptions: fireCentreOption[] = [];
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) { }
 
   ngOnInit() {
     this.getFireCentres();

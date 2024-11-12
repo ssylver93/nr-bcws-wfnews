@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 
 @Component({
@@ -10,11 +10,11 @@ import { CommonUtilityService } from '@app/services/common-utility.service';
   styleUrls: ['./rof-permissions-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFPermissionsPage extends RoFPage {
+export class RoFPermissionsPage extends RoFPageComponent {
   public dataShareAccepted = false;
 
   public constructor(
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private commonUtilityService: CommonUtilityService
   ) {
     super();
@@ -29,7 +29,7 @@ export class RoFPermissionsPage extends RoFPage {
   }
 
   nextPage() {
-    if (this.isMotionSensorActive()  && !this.commonUtilityService.checkIfLandscapeMode()) {
+    if (this.isMotionSensorActive() && !this.commonUtilityService.checkIfLandscapeMode()) {
       this.reportOfFire.headingDetectionActive = true;
       this.next();
     } else {

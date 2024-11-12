@@ -6,13 +6,13 @@ import {
   ViewChildren,
   QueryList,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import {
   MatButtonToggle,
   MatButtonToggleChange,
 } from '@angular/material/button-toggle';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 
 @Component({
@@ -21,7 +21,10 @@ import { CommonUtilityService } from '@app/services/common-utility.service';
   styleUrls: ['./rof-complex-question-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFComplexQuestionPage extends RoFPage {
+export class RoFComplexQuestionPageComponent extends RoFPageComponent {
+  @ViewChild('notSureButton') notSureButton!: MatButtonToggle;
+  @ViewChildren('toggleButton') toggleButtons!: QueryList<MatButtonToggle>;
+
   public allowIDontKnowButton: boolean;
   public allowMultiSelect: boolean;
   public disableNext = true;
@@ -31,11 +34,8 @@ export class RoFComplexQuestionPage extends RoFPage {
   isPageDirty = false;
   public buttonStates: boolean[] = Array(10).fill(false);
 
-  @ViewChild('notSureButton') notSureButton!: MatButtonToggle;
-  @ViewChildren('toggleButton') toggleButtons!: QueryList<MatButtonToggle>;
-
   public constructor(
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private cdr: ChangeDetectorRef,
     private commonUtilityService: CommonUtilityService,
   ) {

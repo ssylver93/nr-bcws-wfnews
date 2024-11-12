@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ReportOfFire } from '@app/components/report-of-fire/reportOfFireModel';
-import { RoFPage } from '@app/components/report-of-fire/rofPage';
+import { RoFPageComponent } from '@app/components/report-of-fire/rofPage';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 import { AppConfigService } from '@wf1/core-ui';
 
@@ -9,7 +9,7 @@ import { AppConfigService } from '@wf1/core-ui';
   templateUrl: './rof-call-page.component.html',
   styleUrls: ['./rof-call-page.component.scss'],
 })
-export class RofCallPage extends RoFPage {
+export class RofCallPage extends RoFPageComponent {
   location: any;
 
   callInfo = [

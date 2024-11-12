@@ -16,7 +16,7 @@ import { PublishedIncidentService } from '../../../services/published-incident-s
   styleUrls: ['./incident-gallery-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IncidentGalleryPanel implements OnInit {
+export class IncidentGalleryPanelComponent implements OnInit {
   @Input() public incident;
   @Input() public showImageWarning;
 

@@ -4,9 +4,9 @@ import {
   ChangeDetectorRef,
   ViewChild,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 
@@ -16,7 +16,7 @@ import { MatButtonToggleGroup } from '@angular/material/button-toggle';
   styleUrls: ['./rof-simple-question-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFSimpleQuestionPage extends RoFPage {
+export class RoFSimpleQuestionPage extends RoFPageComponent {
   @ViewChild('questionOptions') questionOptions: MatButtonToggleGroup; // This captures questionOptions
 
   public allowIDontKnowButton: boolean;
@@ -27,7 +27,7 @@ export class RoFSimpleQuestionPage extends RoFPage {
   offLine = false;
 
   public constructor(
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private cdr: ChangeDetectorRef,
     private commonUtilityService: CommonUtilityService,
   ) {
@@ -50,8 +50,8 @@ export class RoFSimpleQuestionPage extends RoFPage {
 
   processToNext() {
     if (this.id === 'callback-page') {
-this.reportOfFire.headingDetectionActive = true;
-}
+      this.reportOfFire.headingDetectionActive = true;
+    }
     if (
       (this.id === 'response-page' || this.id === 'infrastructure-page') &&
       this.optionSelected !== 'yes'
@@ -132,35 +132,35 @@ this.reportOfFire.headingDetectionActive = true;
     }
   }
 
-    getButtonText(): string {
-      if (this.showProgress || this.id === 'callback-page' || this.id === 'contact-page') {
-        return 'Next';
-      }
-      return 'Continue';
+  getButtonText(): string {
+    if (this.showProgress || this.id === 'callback-page' || this.id === 'contact-page') {
+      return 'Next';
     }
-  
-    handleConfirmButtonClick(): void {
-      if (this.id === 'callback-page' || this.id === 'contact-page') {
-        // Special handling for callback-page and contact-page
-        if (this.questionOptions?.value === 'no') {
-          this.skipPage();  // Skip the page if 'no' is selected
-        } else if (this.questionOptions?.value === 'yes') {
-          this.nextPage();  // Proceed to the next page if 'yes' is selected
-        } else {
-          this.processToNext();  // If any other value or no value is selected
-        }
-      } else if (!this.showProgress) {
-        // Handle 'Continue' behavior for other pages
-        if (this.questionOptions?.value === 'yes') {
-          this.nextPage();
-        } else {
-          this.skipPage();
-        }
+    return 'Continue';
+  }
+
+  handleConfirmButtonClick(): void {
+    if (this.id === 'callback-page' || this.id === 'contact-page') {
+      // Special handling for callback-page and contact-page
+      if (this.questionOptions?.value === 'no') {
+        this.skipPage();  // Skip the page if 'no' is selected
+      } else if (this.questionOptions?.value === 'yes') {
+        this.nextPage();  // Proceed to the next page if 'yes' is selected
       } else {
-        // Handle 'Next' behavior if showProgress is true
-        this.processToNext();
+        this.processToNext();  // If any other value or no value is selected
       }
+    } else if (!this.showProgress) {
+      // Handle 'Continue' behavior for other pages
+      if (this.questionOptions?.value === 'yes') {
+        this.nextPage();
+      } else {
+        this.skipPage();
+      }
+    } else {
+      // Handle 'Next' behavior if showProgress is true
+      this.processToNext();
     }
-    
-  
+  }
+
+
 }

@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
   selector: 'rof-page',
   template: '<div></div>',
 })
-export class RoFPage {
+export class RoFPageComponent {
   public id: string;
   public previousId: string;
   public nextId: string;

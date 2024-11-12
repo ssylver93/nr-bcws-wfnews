@@ -12,7 +12,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { PublicIncidentPageComponent } from './components/public-incident-page/public-incident-page.component';
 import { WildfiresListHeaderComponent } from './components/wildfires-list-header/wildfires-list-header.component';
 import { CanDeactivateGuard } from './components/common/guards/unsaved-changes.guard';
-import { ReportOfFirePage } from './components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from './components/report-of-fire/report-of-fire.component';
 import { Dashboard } from './components/dashboard-component/dashboard.component';
 import { FullDetailsComponent } from './components/full-details/full-details.component';
 import { SavedComponent } from '@app/components/saved/saved.component';
@@ -20,7 +20,7 @@ import { MoreComponent } from '@app/components/more/more.component';
 import { ContactWidgetDialogComponent } from './components/sticky-widget/contact-widget-dialog/contact-widget-dialog.component';
 import { AddSavedLocationComponent } from '@app/components/saved/add-saved-location/add-saved-location.component';
 import { SavedLocationFullDetailsComponent } from './components/saved/saved-location-full-details/saved-location-full-details.component';
-import { SavedLocationWeatherDetailsComponent } 
+import { SavedLocationWeatherDetailsComponent }
   from './components/saved/saved-location-weather-details/saved-location-weather-details.component';
 import { PublicEventPageComponent } from '@app/components/public-event-page/public-event-page.component';
 import { DeviceRedirectGuard } from '@app/services/device-redirect-guard';
@@ -56,7 +56,7 @@ const PANEL_ROUTES: Routes = [
     component: WildfirewResourcesComponent,
     pathMatch: 'full',
   },
-  { path: ResourcesRoutes.ROF, component: ReportOfFirePage, pathMatch: 'full' },
+  { path: ResourcesRoutes.ROF, component: ReportOfFirePageComponent, pathMatch: 'full' },
   {
     path: ResourcesRoutes.ADMIN,
     data: { scopes: PROFILE_SCOPES },

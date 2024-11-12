@@ -16,7 +16,7 @@ export class OptionDisclaimer {
   templateUrl: './incident-details-panel.component.html',
   styleUrls: ['./incident-details-panel.component.scss'],
 })
-export class IncidentDetailsPanel {
+export class IncidentDetailsPanelComponent {
   @Input() public readonly formGroup: UntypedFormGroup;
   @Input() public incident;
 

@@ -4,12 +4,12 @@ import {
   ChangeDetectorRef,
   OnInit,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogLocationComponent } from '@app/components/report-of-fire/dialog-location/dialog-location.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { App } from '@capacitor/app';
 import { BackgroundTask } from '@capawesome/capacitor-background-task';
 import { Subscription, interval } from 'rxjs';
@@ -21,7 +21,7 @@ import { ReportOfFireService } from '@app/services/report-of-fire-service';
   styleUrls: ['./rof-title-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFTitlePage extends RoFPage implements OnInit {
+export class RoFTitlePage extends RoFPageComponent implements OnInit {
   public imageUrl: string;
   public closeButton: boolean;
   public messages: any;
@@ -33,7 +33,7 @@ export class RoFTitlePage extends RoFPage implements OnInit {
     protected dialog: MatDialog,
     private commonUtilityService: CommonUtilityService,
     private cdr: ChangeDetectorRef,
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
     private reportOfFireService: ReportOfFireService
   ) {
     super();
@@ -67,10 +67,11 @@ export class RoFTitlePage extends RoFPage implements OnInit {
       // Start the background task by calling `beforeExit`.
       const taskId = await BackgroundTask.beforeExit(async () => {
 
-        if(!this.intervalRef || this.intervalRef.closed) {
+        if (!this.intervalRef || this.intervalRef.closed) {
           this.intervalRef = interval(30000).subscribe(async () => {
-            if(await this.checkStoredRoF()) 
+            if (await this.checkStoredRoF()) {
               this.unsubscribeInterval();
+            }
           });
         }
 
@@ -97,10 +98,10 @@ export class RoFTitlePage extends RoFPage implements OnInit {
     await this.commonUtilityService.checkOnlineStatus().then(async (result) => {
       if (result) {
         await this.reportOfFireService.syncDataWithServer(this.intervalRef).then(response => {
-          if(response) {
+          if (response) {
             rofSubmitted = true;
           }
-        });      
+        });
       };
     });
     return rofSubmitted;

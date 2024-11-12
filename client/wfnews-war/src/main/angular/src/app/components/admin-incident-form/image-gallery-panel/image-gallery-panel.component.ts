@@ -39,7 +39,7 @@ import { WatchlistService } from '../../../services/watchlist-service';
   styleUrls: ['./image-gallery-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImageGalleryPanel
+export class ImageGalleryPanelComponent
   extends BaseComponent
   implements OnInit, OnChanges {
   @Input() public incident;
@@ -128,14 +128,14 @@ export class ImageGalleryPanel
         docs.collection.sort((a, b) => {
           const dir = this.searchState.sortDirection === 'desc' ? -1 : 1;
           if (a[this.searchState.sortParam] < b[this.searchState.sortParam]) {
-return -dir;
-} else if (
+            return -dir;
+          } else if (
             a[this.searchState.sortParam] > b[this.searchState.sortParam]
           ) {
-return dir;
-} else {
-return 0;
-}
+            return dir;
+          } else {
+            return 0;
+          }
         });
         // remove any non-image types
         for (const doc of docs.collection) {

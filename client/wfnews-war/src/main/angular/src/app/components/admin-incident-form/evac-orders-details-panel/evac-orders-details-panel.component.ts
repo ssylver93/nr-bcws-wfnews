@@ -16,7 +16,7 @@ import {
   templateUrl: './evac-orders-details-panel.component.html',
   styleUrls: ['./evac-orders-details-panel.component.scss'],
 })
-export class EvacOrdersDetailsPanel implements OnInit {
+export class EvacOrdersDetailsPanelComponent implements OnInit {
   @Input() public readonly formGroup: UntypedFormGroup;
   @Input() public incident;
 
@@ -27,7 +27,7 @@ export class EvacOrdersDetailsPanel implements OnInit {
     protected cdr: ChangeDetectorRef,
     private readonly formBuilder: UntypedFormBuilder,
     private externalUriService: ExternalUriService,
-  ) {}
+  ) { }
 
   get evacOrderForm(): UntypedFormArray {
     return this.formGroup.get('evacOrders') as UntypedFormArray;
@@ -36,8 +36,8 @@ export class EvacOrdersDetailsPanel implements OnInit {
   ngOnInit() {
     try {
       this.getEvacOrders();
-    } catch(error) {
-      console.log("Error fetching evacuations: " + error);
+    } catch (error) {
+      console.log('Error fetching evacuations: ' + error);
     }
   }
 
@@ -56,6 +56,7 @@ export class EvacOrdersDetailsPanel implements OnInit {
         externalUriCategoryTag: 'EVAC-ORDER',
         sourceObjectNameCode: 'INCIDENT',
         sourceObjectUniqueId: '' + this.incident.wildfireIncidentGuid,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         '@type': 'http://wfim.nrs.gov.bc.ca/v1/externalUri',
         type: 'http://wfim.nrs.gov.bc.ca/v1/externalUri',
       } as ExternalUriResource,
@@ -116,18 +117,18 @@ export class EvacOrdersDetailsPanel implements OnInit {
       const response: any = await this.agolService
         .getEvacOrders(null, this.incident.geometry)
         .toPromise();
-          if (response && response.features) {
-            for (const element of response.features) {
-              this.evacOrders.push({
-                eventName: element.attributes.EVENT_NAME,
-                eventType: element.attributes.EVENT_TYPE,
-                orderAlertStatus: element.attributes.ORDER_ALERT_STATUS,
-                issuingAgency: element.attributes.ISSUING_AGENCY,
-                preOcCode: element.attributes.PREOC_CODE,
-                emrgOAAsysID: element.attributes.EMRG_OAA_SYSID,
-              });
-            }
-          }
+      if (response && response.features) {
+        for (const element of response.features) {
+          this.evacOrders.push({
+            eventName: element.attributes.EVENT_NAME,
+            eventType: element.attributes.EVENT_TYPE,
+            orderAlertStatus: element.attributes.ORDER_ALERT_STATUS,
+            issuingAgency: element.attributes.ISSUING_AGENCY,
+            preOcCode: element.attributes.PREOC_CODE,
+            emrgOAAsysID: element.attributes.EMRG_OAA_SYSID,
+          });
+        }
+      }
     }
 
     this.externalUriService

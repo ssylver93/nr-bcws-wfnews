@@ -40,65 +40,65 @@ import { App, URLOpenListenerEvent } from '@capacitor/app';
 import { filter } from 'rxjs/operators';
 
 export const ICON = {
-  ADVISORIES: 'advisories',
-  BACK_ICON: 'back-icon',
-  BOOKMARK: 'bookmark',
-  CLOUD_SUN: 'cloud-sun',
-  CONTACT_US: 'contact-us',
-  DOT: 'dot',
-  EXCLAMATION_CIRCLE: 'exclamation-circle',
-  EXT_LINK: 'external-link',
-  FACEBOOK_SQUARE: 'fb-square',
-  FACEBOOK: 'facebook',
-  FILTER_CANCEL: 'filter-cancel',
-  FIRE: 'fire',
-  INCIDENT: 'incident',
-  MAP_SIGNS: 'map-signs',
-  MAP: 'map',
-  MAP_HOVER: 'map-hover',
-  TWITTER: 'twitter',
-  CAMPING: 'camping',
-  LARGER: 'larger',
-  PHONE: 'phone',
-  ARROW_FORWARD_ENABLED: 'arrow-forward-enabled',
-  ARROW_FORWARD_DISABLED: 'arrow-forward-disabled',
-  CAMERA: 'camera',
-  IMAGE: 'image',
-  CAMERA_GREY: 'camera-grey',
-  IMAGE_GREY: 'image-grey',
-  EDIT: 'edit',
-  SEND: 'send',
-  LOCATION_OFF: 'location-off',
-  DASHBOARD: 'dashboard',
-  MORE: 'more',
-  REPORT: 'report',
-  SAVED: 'saved',
-  ARROW: 'arrow',
-  CANCEL: 'cancel',
-  AREA_RESTRICTION: 'area-restriction',
-  BAN: 'ban',
-  FIRE_DANGER_VERY_LOW: 'fire-danger-very-low',
-  FIRE_DANGER_LOW: 'fire-danger-low',
-  FIRE_DANGER_MODERATE: 'fire-danger-moderate',
-  FIRE_DANGER_HIGH: 'fire-danger-high',
-  FIRE_DANGER_EXTREME: 'fire-danger-extreme',
-  ROAD_EVENT: 'road-event',
-  CLOSED_RECREATION_SITE: 'closed-recreation-site',
-  REGIONAL_DISTRICTS: 'regional-districts',
-  BROWN_SQUARE: 'brown-square',
-  INDIAN_RESERVE: 'indian-reserve',
-  BACK_ICON_PANEL: 'back-icon-panel',
-  FIRE_NOTE: 'fire-note',
-  LOCATION_DISABLED: 'location-disabled',
-  LOCATION_ENABLED: 'location-enabled',
-  CALENDAR: 'calendar',
-  ZOOM_IN: 'zoom-in',
-  AGENCY: 'agency',
-  CARBON_GAUGE: 'carbon-gauge',
-  CARBON_CALENDAR: 'carbon-calendar',
-  ARROW_LEFT: 'carbon-calendar',
-  CARBON_LAYER: 'carbon-layer',
-  LAUNCH_WHITE: 'launch_white'
+  advisories: 'advisories',
+  backIcon: 'back-icon',
+  bookmark: 'bookmark',
+  cloudSun: 'cloud-sun',
+  contactUs: 'contact-us',
+  dot: 'dot',
+  exclamationCircle: 'exclamation-circle',
+  externalLink: 'external-link',
+  facebookSquare: 'fb-square',
+  facebook: 'facebook',
+  filterCancel: 'filter-cancel',
+  fire: 'fire',
+  incident: 'incident',
+  mapSigns: 'map-signs',
+  map: 'map',
+  mapHover: 'map-hover',
+  twitter: 'twitter',
+  camping: 'camping',
+  larger: 'larger',
+  phone: 'phone',
+  arrowForwardEnabled: 'arrow-forward-enabled',
+  arrowForwardDisabled: 'arrow-forward-disabled',
+  camera: 'camera',
+  image: 'image',
+  cameraGrey: 'camera-grey',
+  imageGrey: 'image-grey',
+  edit: 'edit',
+  send: 'send',
+  locationOff: 'location-off',
+  dashboard: 'dashboard',
+  more: 'more',
+  report: 'report',
+  saved: 'saved',
+  arrow: 'arrow',
+  cancel: 'cancel',
+  areaRestriction: 'area-restriction',
+  ban: 'ban',
+  fireDangerVeryLow: 'fire-danger-very-low',
+  fireDangerLow: 'fire-danger-low',
+  fireDangerModerate: 'fire-danger-moderate',
+  fireDangerHigh: 'fire-danger-high',
+  fireDangerExtreme: 'fire-danger-extreme',
+  roadEvent: 'road-event',
+  closedRecreationSite: 'closed-recreation-site',
+  regionalDistricts: 'regional-districts',
+  brownSquare: 'brown-square',
+  indianReserve: 'indian-reserve',
+  backIconPanel: 'back-icon-panel',
+  fireNote: 'fire-note',
+  locationDisabled: 'location-disabled',
+  locationEnabled: 'location-enabled',
+  calendar: 'calendar',
+  zoomIn: 'zoom-in',
+  agency: 'agency',
+  carbonGauge: 'carbon-gauge',
+  carbonCalendar: 'carbon-calendar',
+  arrowLeft: 'arrow-left',
+  carbonLayer: 'carbon-layer',
+  launchWhite: 'launch_white'
 };
 
 @Component({
@@ -502,31 +502,6 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
     }
   }
 
-  private onSizeChange() {
-    setTimeout(() => {
-      this.updateMapSize();
-      this.initAppMenu();
-      this.initFooterMenu();
-      this.cdr.detectChanges();
-
-      // on resize, ensure the right main panel css is applied
-      // Basically, we want mobile all the time on public and
-      // desktop all the time on admin
-      const classList = document.getElementById('main-app').classList;
-      if (this.isAdminPage() && classList.contains('device-mobile')) {
-        classList.remove('device-mobile');
-        classList.add('device-desktop');
-      } else if (
-        !this.isAdminPage() &&
-        this.applicationConfig.environment.toLowerCase() === '' &&
-        classList.contains('device-desktop')
-      ) {
-        classList.remove('device-desktop');
-        classList.add('device-mobile');
-      }
-    }, 250);
-  }
-
   storeViewportSize() {
     this.orientation = this.applicationStateService.getOrientation();
     document.documentElement.style.setProperty(
@@ -566,371 +541,371 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
 
   addCustomMaterialIcons() {
     this.matIconRegistry.addSvgIcon(
-      ICON.TWITTER,
+      ICON.twitter,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/twitter.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.FACEBOOK,
+      ICON.facebook,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/facebook.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.FACEBOOK_SQUARE,
+      ICON.facebookSquare,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/facebook-square.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE,
+      ICON.fire,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.EXCLAMATION_CIRCLE,
+      ICON.exclamationCircle,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/exclamation-circle.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.MAP_SIGNS,
+      ICON.mapSigns,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/map-signs.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.INCIDENT,
+      ICON.incident,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/incident.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.ADVISORIES,
+      ICON.advisories,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/bullhorn.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.EXT_LINK,
+      ICON.externalLink,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/external-link.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.CLOUD_SUN,
+      ICON.cloudSun,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/cloud-sun.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.FILTER_CANCEL,
+      ICON.filterCancel,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/filter-cancel.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.BOOKMARK,
+      ICON.bookmark,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/bookmark.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.MAP,
+      ICON.map,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/map.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.MAP_HOVER,
+      ICON.mapHover,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/map-hover.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.BACK_ICON,
+      ICON.backIcon,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/back-icon.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.DOT,
+      ICON.dot,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/dot.svg',
       ),
     );
 
     this.matIconRegistry.addSvgIcon(
-      ICON.CONTACT_US,
+      ICON.contactUs,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/contact-us.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CAMPING,
+      ICON.camping,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/camping.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.LARGER,
+      ICON.larger,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/larger.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.PHONE,
+      ICON.phone,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/phone.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ARROW_FORWARD_ENABLED,
+      ICON.arrowForwardEnabled,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/arrow-forward-enabled.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ARROW_FORWARD_DISABLED,
+      ICON.arrowForwardDisabled,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/arrow-forward-disabled.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CAMERA,
+      ICON.camera,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/camera.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.IMAGE,
+      ICON.image,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/image.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CAMERA_GREY,
+      ICON.cameraGrey,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/camera-grey.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.IMAGE_GREY,
+      ICON.imageGrey,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/image-grey.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.EDIT,
+      ICON.edit,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/edit.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.SEND,
+      ICON.send,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/send.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.LOCATION_OFF,
+      ICON.locationOff,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/location-off.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.DASHBOARD,
+      ICON.dashboard,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/dashboard.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.MORE,
+      ICON.more,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/more.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.REPORT,
+      ICON.report,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/report.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.SAVED,
+      ICON.saved,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/saved.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ARROW,
+      ICON.arrow,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/arrow.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CANCEL,
+      ICON.cancel,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/cancel.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.AREA_RESTRICTION,
+      ICON.areaRestriction,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/area-restriction.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.BAN,
+      ICON.ban,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/ban.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_DANGER_VERY_LOW,
+      ICON.fireDangerVeryLow,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-danger-very-low.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_DANGER_LOW,
+      ICON.fireDangerLow,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-danger-low.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_DANGER_MODERATE,
+      ICON.fireDangerModerate,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-danger-moderate.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_DANGER_HIGH,
+      ICON.fireDangerHigh,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-danger-high.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_DANGER_EXTREME,
+      ICON.fireDangerExtreme,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-danger-extreme.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ROAD_EVENT,
+      ICON.roadEvent,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/road-event.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CLOSED_RECREATION_SITE,
+      ICON.closedRecreationSite,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/closed-recreation-site.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.REGIONAL_DISTRICTS,
+      ICON.regionalDistricts,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/regional-districts.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.BROWN_SQUARE,
+      ICON.brownSquare,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/brown-square.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.INDIAN_RESERVE,
+      ICON.indianReserve,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/indian-reserve.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.BACK_ICON_PANEL,
+      ICON.backIconPanel,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/back-icon-panel.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.FIRE_NOTE,
+      ICON.fireNote,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/fire-note.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.LOCATION_DISABLED,
+      ICON.locationDisabled,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/location-disabled.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.LOCATION_ENABLED,
+      ICON.locationEnabled,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/location-enabled.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CALENDAR,
+      ICON.calendar,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/calendar.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ZOOM_IN,
+      ICON.zoomIn,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/zoom-in.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.ARROW_LEFT,
+      ICON.arrowLeft,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/arrow-left.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CARBON_CALENDAR,
+      ICON.carbonCalendar,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/carbon_calendar.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.AGENCY,
+      ICON.agency,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/carbon_finance.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CARBON_GAUGE,
+      ICON.carbonGauge,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/carbon_gauge.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.CARBON_LAYER,
+      ICON.carbonLayer,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/carbon_layers.svg',
       ),
     );
     this.matIconRegistry.addSvgIcon(
-      ICON.LAUNCH_WHITE,
+      ICON.launchWhite,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'assets/images/svg-icons/launch_white.svg',
       ),
@@ -1013,4 +988,29 @@ export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
   private updateMapSize = function () {
     this.storeViewportSize();
   };
+
+  private onSizeChange() {
+    setTimeout(() => {
+      this.updateMapSize();
+      this.initAppMenu();
+      this.initFooterMenu();
+      this.cdr.detectChanges();
+
+      // on resize, ensure the right main panel css is applied
+      // Basically, we want mobile all the time on public and
+      // desktop all the time on admin
+      const classList = document.getElementById('main-app').classList;
+      if (this.isAdminPage() && classList.contains('device-mobile')) {
+        classList.remove('device-mobile');
+        classList.add('device-desktop');
+      } else if (
+        !this.isAdminPage() &&
+        this.applicationConfig.environment.toLowerCase() === '' &&
+        classList.contains('device-desktop')
+      ) {
+        classList.remove('device-desktop');
+        classList.add('device-mobile');
+      }
+    }, 250);
+  }
 }

@@ -11,18 +11,18 @@ import { RoFTitlePage } from './title-page/rof-title-page.component';
 import { Location } from '@angular/common';
 import { RoFPermissionsPage } from './permissions-page/rof-permissions-page.component';
 import { RoFSimpleQuestionPage } from './simple-question-page/rof-simple-question-page.component';
-import { RoFContactPage } from './contact-page/rof-contact-page.component';
-import { RoFLocationPage } from './location-page/rof-location-page.component';
+import { RoFContactPageComponent } from './contact-page/rof-contact-page.component';
+import { RoFLocationPageComponent } from './location-page/rof-location-page.component';
 import { RoFPhotoPage } from './photo-page/rof-photo-page.component';
 import { ReportOfFire } from './reportOfFireModel';
-import { RoFComplexQuestionPage } from './complex-question-page/rof-complex-question-page.component';
+import { RoFComplexQuestionPageComponent } from './complex-question-page/rof-complex-question-page.component';
 import ConfigJson from './report-of-fire.config.json';
-import { RoFCommentsPage } from './comment-page/rof-comments-page.component';
+import { RoFCommentsPageComponent } from './comment-page/rof-comments-page.component';
 import { RoFReviewPage } from './review-page/rof-review-page.component';
 import { Router } from '@angular/router';
-import { RoFCompassPage } from './compass-page/rof-compass-page.component';
+import { RoFCompassPageComponent } from './compass-page/rof-compass-page.component';
 import { CommonUtilityService } from '@app/services/common-utility.service';
-import { RoFDisclaimerPage } from './disclaimer-page/rof-disclaimer-page.component';
+import { RoFDisclaimerPageComponent } from './disclaimer-page/rof-disclaimer-page.component';
 import { RofCallPage } from '@app/components/report-of-fire/rof-callback-page/rof-call-page.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogExitComponent } from '@app/components/report-of-fire/dialog-exit/dialog-exit.component';
@@ -44,10 +44,10 @@ enum PageOperation {
   styleUrls: ['./report-of-fire.component.scss'],
   providers: [CommonUtilityService],
 })
-export class ReportOfFirePage implements OnInit, AfterContentInit {
+export class ReportOfFirePageComponent implements OnInit, AfterContentInit {
   @ViewChild('dynamic', { static: true, read: ViewContainerRef })
   public dynamicContainer!: ViewContainerRef;
-  
+
   public reportOfFire: ReportOfFire;
   public pageComponents: Array<ComponentRef<any>> = [];
   public currentPage: ComponentRef<any>;
@@ -87,8 +87,8 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
         case 'RofCallPage':
           component = this.dynamicContainer.createComponent(RofCallPage);
           break;
-        case 'RoFDisclaimerPage':
-          component = this.dynamicContainer.createComponent(RoFDisclaimerPage);
+        case 'RoFDisclaimerPageComponent':
+          component = this.dynamicContainer.createComponent(RoFDisclaimerPageComponent);
           break;
         case 'RoFPermissionsPage':
           component = this.dynamicContainer.createComponent(RoFPermissionsPage);
@@ -98,28 +98,28 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
             RoFSimpleQuestionPage,
           );
           break;
-        case 'RoFContactPage':
-          component = this.dynamicContainer.createComponent(RoFContactPage);
+        case 'RoFContactPageComponent':
+          component = this.dynamicContainer.createComponent(RoFContactPageComponent);
           break;
-        case 'RoFLocationPage':
-          component = this.dynamicContainer.createComponent(RoFLocationPage);
+        case 'RoFLocationPageComponent':
+          component = this.dynamicContainer.createComponent(RoFLocationPageComponent);
           break;
         case 'RoFPhotoPage':
           component = this.dynamicContainer.createComponent(RoFPhotoPage);
           break;
-        case 'RoFComplexQuestionPage':
+        case 'RoFComplexQuestionPageComponent':
           component = this.dynamicContainer.createComponent(
-            RoFComplexQuestionPage,
+            RoFComplexQuestionPageComponent,
           );
           break;
-        case 'RoFCommentsPage':
-          component = this.dynamicContainer.createComponent(RoFCommentsPage);
+        case 'RoFCommentsPageComponent':
+          component = this.dynamicContainer.createComponent(RoFCommentsPageComponent);
           break;
         case 'RoFReviewPage':
           component = this.dynamicContainer.createComponent(RoFReviewPage);
           break;
         case 'RoFCompassPage':
-          component = this.dynamicContainer.createComponent(RoFCompassPage);
+          component = this.dynamicContainer.createComponent(RoFCompassPageComponent);
           break;
       }
 
@@ -228,7 +228,7 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
     // reload the map in location-page to pick up the distance && compass changes from previous step
     if (pageId === 'location-page') {
       const locationPageComponent = this.currentPage
-        .instance as RoFLocationPage;
+        .instance as RoFLocationPageComponent;
       if (locationPageComponent.mapConfig) {
         locationPageComponent.loadMapConfig();
       }
@@ -240,11 +240,11 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
       switch (pageId) {
         case 'contact-page':
           const contactPageComponent = this.currentPage
-            .instance as RoFContactPage;
+            .instance as RoFContactPageComponent;
           contactPageComponent.editMode();
         case 'location-page':
           const locationPageComponent = this.currentPage
-            .instance as RoFLocationPage;
+            .instance as RoFLocationPageComponent;
           locationPageComponent.editMode();
         case 'photo-page':
           const photoPageComponent = this.currentPage.instance as RoFPhotoPage;
@@ -255,7 +255,7 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
         case 'what-is-burning-page':
         case 'infrastructure-details-page':
           const complexQuestionPageComponent = this.currentPage
-            .instance as RoFComplexQuestionPage;
+            .instance as RoFComplexQuestionPageComponent;
           complexQuestionPageComponent.editMode();
 
         case 'callback-page':
@@ -269,7 +269,7 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
 
         case 'comments-page':
           const commentPageComponent = this.currentPage
-            .instance as RoFCommentsPage;
+            .instance as RoFCommentsPageComponent;
           commentPageComponent.editMode();
         case 'review-page':
           const reviewPageComponent = this.currentPage
@@ -304,7 +304,7 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
           roFSimpleQuestionPageComponent.checkOnlineStatus();
         case 'contact-page':
           const roFContactPageComponent = this.currentPage
-            .instance as RoFContactPage;
+            .instance as RoFContactPageComponent;
           roFContactPageComponent.checkOnlineStatus();
       }
     }
@@ -421,6 +421,6 @@ export class ReportOfFirePage implements OnInit, AfterContentInit {
   }
 
   exitText() {
-      return 'Exit';
+    return 'Exit';
   }
 }

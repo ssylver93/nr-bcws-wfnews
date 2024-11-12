@@ -8,13 +8,13 @@ import { AGOLService } from '../../../services/AGOL-service';
   templateUrl: './area-restrictions-details-panel.component.html',
   styleUrls: ['./area-restrictions-details-panel.component.scss'],
 })
-export class AreaRestrictionsDetailsPanel implements OnInit {
+export class AreaRestrictionsDetailsPanelComponent implements OnInit {
   @Input() public readonly formGroup: UntypedFormGroup;
   @Input() public incident;
 
   areaRestrictions: AreaRestrictionsOption[] = [];
 
-  constructor(private agolService: AGOLService) {}
+  constructor(private agolService: AGOLService) { }
 
   ngOnInit() {
     this.getAreaRestrictions();

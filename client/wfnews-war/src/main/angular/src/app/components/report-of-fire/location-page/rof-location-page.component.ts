@@ -5,7 +5,7 @@ import {
   AfterViewInit,
   ElementRef,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
 import { HttpClient } from '@angular/common/http';
 import { CompassHeading } from '@app/services/capacitor-service';
@@ -13,7 +13,7 @@ import { LatLon, LonLat } from '@app/services/wfnews-map.service/util';
 import { SmkApi } from '@app/utils/smk';
 import { MapConfigService } from '@app/services/map-config.service';
 import { CommonUtilityService } from '@app/services/common-utility.service';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import offlineMapJson from '../../../../assets/maps/british-columbia.json';
 import * as L from 'leaflet';
@@ -29,7 +29,7 @@ import { getActiveMap } from '@app/utils';
     { provide: LocationStrategy, useClass: PathLocationStrategy },
   ],
 })
-export class RoFLocationPage extends RoFPage implements AfterViewInit {
+export class RoFLocationPageComponent extends RoFPageComponent implements AfterViewInit {
   mapConfig = null;
   SMK: any;
   location?: any;
@@ -47,7 +47,7 @@ export class RoFLocationPage extends RoFPage implements AfterViewInit {
     private cdr: ChangeDetectorRef,
     private commonUtilityService: CommonUtilityService,
     private elementRef: ElementRef,
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
   ) {
     super();
   }
@@ -138,7 +138,7 @@ export class RoFLocationPage extends RoFPage implements AfterViewInit {
       },
     });
     const map = smk.$viewer.map;
-    
+
     const toolbar = document.querySelector('.smk-toolbar') as HTMLElement;
     if (toolbar) {
       toolbar.style.display = 'none';
@@ -153,10 +153,10 @@ export class RoFLocationPage extends RoFPage implements AfterViewInit {
 
     const connector = () => {
       const photo = map.getCenter();
-        const loc = [
-          this.location.coords.longitude,
-          this.location.coords.latitude,
-        ] as LonLat;
+      const loc = [
+        this.location.coords.longitude,
+        this.location.coords.latitude,
+      ] as LonLat;
 
       this.fireLocation = [photo.lat, photo.lng];
 
@@ -262,42 +262,42 @@ export class RoFLocationPage extends RoFPage implements AfterViewInit {
       if (!result) {
         this.mapConfigService.getReportOfFireOfflineMapConfig().then((cfg) => {
           const turf = window['turf'];
-            const loc = [
-              this.location.coords.longitude,
-              this.location.coords.latitude,
-            ];
-            const dist =
-              this.reportOfFire.estimatedDistance &&
+          const loc = [
+            this.location.coords.longitude,
+            this.location.coords.latitude,
+          ];
+          const dist =
+            this.reportOfFire.estimatedDistance &&
               this.reportOfFire.estimatedDistance !== 0
-                ? this.reportOfFire.estimatedDistance / 1000
-                : this.distanceEstimateMeter / 1000; //km
-            const head = this.reportOfFire.compassHeading;
-            const photo = turf.destination(loc, dist, head);
-            const poly = turf.circle(photo.geometry.coordinates, dist);
-            const exp = turf.transformScale(poly, 1.1);
-            const bbox = turf.bbox(exp);
-            const view = { viewer: { location: { extent: bbox } } };
+              ? this.reportOfFire.estimatedDistance / 1000
+              : this.distanceEstimateMeter / 1000; //km
+          const head = this.reportOfFire.compassHeading;
+          const photo = turf.destination(loc, dist, head);
+          const poly = turf.circle(photo.geometry.coordinates, dist);
+          const exp = turf.transformScale(poly, 1.1);
+          const bbox = turf.bbox(exp);
+          const view = { viewer: { location: { extent: bbox } } };
           this.mapConfig = [cfg, view];
           this.cdr.detectChanges();
         });
       } else {
         this.mapConfigService.getReportOfFireMapConfig().then((cfg) => {
           const turf = window['turf'];
-            const loc = [
-              this.location.coords.longitude,
-              this.location.coords.latitude,
-            ];
-            const dist =
-              this.reportOfFire.estimatedDistance &&
+          const loc = [
+            this.location.coords.longitude,
+            this.location.coords.latitude,
+          ];
+          const dist =
+            this.reportOfFire.estimatedDistance &&
               this.reportOfFire.estimatedDistance !== 0
-                ? this.reportOfFire.estimatedDistance / 1000
-                : this.distanceEstimateMeter / 1000; //km
-            const head = this.reportOfFire.compassHeading;
-            const photo = turf.destination(loc, dist, head);
-            const poly = turf.circle(photo.geometry.coordinates, dist);
-            const exp = turf.transformScale(poly, 1.1);
-            const bbox = turf.bbox(exp);
-            const view = { viewer: { location: { extent: bbox } } };
+              ? this.reportOfFire.estimatedDistance / 1000
+              : this.distanceEstimateMeter / 1000; //km
+          const head = this.reportOfFire.compassHeading;
+          const photo = turf.destination(loc, dist, head);
+          const poly = turf.circle(photo.geometry.coordinates, dist);
+          const exp = turf.transformScale(poly, 1.1);
+          const bbox = turf.bbox(exp);
+          const view = { viewer: { location: { extent: bbox } } };
           this.mapConfig = [cfg, view];
           this.cdr.detectChanges();
         });
@@ -343,14 +343,14 @@ export class RoFLocationPage extends RoFPage implements AfterViewInit {
 
 function formatDist(dist: number): string {
   if (dist == null) {
-return '';
-}
+    return '';
+  }
 
   const rounded = parseFloat(dist.toPrecision(6));
   const a = Math.abs(rounded);
-    const s = Math.sign(rounded);
-    const i = Math.floor(a);
-    const f = a - i;
+  const s = Math.sign(rounded);
+  const i = Math.floor(a);
+  const f = a - i;
 
   return (s * i).toLocaleString() + f.toFixed(3).substr(1);
 }

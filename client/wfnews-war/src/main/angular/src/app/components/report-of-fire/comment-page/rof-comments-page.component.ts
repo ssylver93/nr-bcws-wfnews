@@ -5,9 +5,9 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { RoFPage } from '../rofPage';
+import { RoFPageComponent } from '../rofPage';
 import { ReportOfFire } from '../reportOfFireModel';
-import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.component';
+import { ReportOfFirePageComponent } from '@app/components/report-of-fire/report-of-fire.component';
 
 @Component({
   selector: 'rof-comments-page',
@@ -15,7 +15,7 @@ import { ReportOfFirePage } from '@app/components/report-of-fire/report-of-fire.
   styleUrls: ['./rof-comments-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoFCommentsPage extends RoFPage {
+export class RoFCommentsPageComponent extends RoFPageComponent {
   @ViewChild('commentText', { static: false }) commentTextArea: ElementRef;
   isEditMode = false;
   isPageDirty = false;
@@ -23,7 +23,7 @@ export class RoFCommentsPage extends RoFPage {
   hasEnteredTextArea = false;
   public constructor(
     private cdr: ChangeDetectorRef,
-    private reportOfFirePage: ReportOfFirePage,
+    private reportOfFirePage: ReportOfFirePageComponent,
   ) {
     super();
   }

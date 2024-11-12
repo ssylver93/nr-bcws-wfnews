@@ -22,7 +22,7 @@ import { EditImageDialogComponent } from '../edit-image-dialog/edit-image-dialog
   templateUrl: './image-card-panel.component.html',
   styleUrls: ['./image-card-panel.component.scss'],
 })
-export class ImageCardPanel implements OnInit, OnChanges {
+export class ImageCardPanelComponent implements OnInit, OnChanges {
   @Input() public incident;
   @Input() public attachment: AttachmentResource;
   @Output() loadPage: EventEmitter<any> = new EventEmitter();
@@ -43,6 +43,40 @@ export class ImageCardPanel implements OnInit, OnChanges {
     /* Empty */
   }
 
+  get isPrimary() {
+    if (!Object.hasOwn(this.attachment, 'primaryInd')) {
+      (this.attachment as any).primaryInd = false;
+    }
+
+    return (this.attachment as any).primaryInd;
+  }
+
+  set isPrimary(primary) {
+    (this.attachment as any).primaryInd = primary;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  get commsSuitable() {
+    return this.attachment.commsSuitable;
+  }
+
+  set commsSuitable(commsSuitable) {
+    this.attachment.commsSuitable = commsSuitable;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadImage();
+  }
+
+  ngOnInit(): void {
+    this.loadImage();
+  }
+
+  ngDoCheck() {
+    this.loadImage();
+  }
+
+
   changePrimary() {
     try {
       (this.attachment as any).primaryInd = !(this.attachment as any)
@@ -58,26 +92,6 @@ export class ImageCardPanel implements OnInit, OnChanges {
     }
 
     this.updateIncidentAttachment();
-  }
-
-  get isPrimary() {
-    if (!Object.hasOwn(this.attachment, 'primaryInd')) {
-      (this.attachment as any).primaryInd = false;
-    }
-
-    return (this.attachment as any).primaryInd;
-  }
-
-  set isPrimary(primary) {
-    (this.attachment as any).primaryInd = primary;
-  }
-
-  get commsSuitable() {
-    return this.attachment.commsSuitable;
-  }
-
-  set commsSuitable(commsSuitable) {
-    this.attachment.commsSuitable = commsSuitable;
   }
 
   edit() {
@@ -130,18 +144,6 @@ export class ImageCardPanel implements OnInit, OnChanges {
         );
         this.loaded = false;
       });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadImage();
-  }
-
-  ngOnInit(): void {
-    this.loadImage();
-  }
-
-  ngDoCheck() {
-    this.loadImage();
   }
 
   convertToDate(value: string | number | Date): string {

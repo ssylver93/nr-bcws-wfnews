@@ -27,7 +27,7 @@
         </mat-expansion-panel-header>
         <summary-panel #summaryPanelComponent [incident]="incident"></summary-panel>
     </mat-expansion-panel>
-      <mat-expansion-panel #IncidentDetailsPanel class="incident-details-panel" expanded>
+      <mat-expansion-panel #IncidentDetailsPanelComponent class="incident-details-panel" expanded>
           <mat-expansion-panel-header>
               <mat-panel-title>
                   <span class="panel-title">Incident Details</span>
@@ -51,7 +51,7 @@
         </mat-expansion-panel-header>
         <evac-orders-details-panel #EvacOrderPanel [incident]="incident" [formGroup]="incidentForm"></evac-orders-details-panel>
       </mat-expansion-panel>
-      <mat-expansion-panel #AreaRestrictionsDetailsPanel class="area-restrictions-details-panel" expanded>
+      <mat-expansion-panel #AreaRestrictionsDetailsPanelComponent class="area-restrictions-details-panel" expanded>
         <mat-expansion-panel-header>
             <mat-panel-title>
               <span class="panel-title">Area Restrictions</span>
